@@ -19,7 +19,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/content/posts`, // for the path you can change it based on your preferred folder structure
+        path: `${__dirname}/src/posts`, // for the path you can change it based on your preferred folder structure
       },
     },
     {
@@ -45,8 +45,9 @@ module.exports = {
               includeDefaultCss: true,
               gistDefaultCssInclude: true,
               gistCssPreload: false,
-              gistCssUrlAddress: "https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css"
-            }
+              gistCssUrlAddress:
+                "https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css",
+            },
           },
           {
             resolve: `gatsby-remark-images`,
@@ -56,9 +57,9 @@ module.exports = {
               showCaptions: true,
               quality: 100,
             },
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
   ],
 }

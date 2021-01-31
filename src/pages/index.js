@@ -1,14 +1,14 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+// import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="Home" />
-    <Posting data={data}/>
+    <Posting data={data} />
 
     {/*<h1>Hi people</h1>*/}
     {/*<p>Welcome to your new Gatsby site.</p>*/}
@@ -24,22 +24,19 @@ const IndexPage = ({ data }) => (
 const Posting = ({ data }) => {
   const { edges } = data.allMarkdownRemark
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      fontFamily: "avenir"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        fontFamily: "avenir",
+      }}
+    >
       {edges.map(edge => {
         const { frontmatter } = edge.node
         return (
-          <div
-            key={frontmatter.slug}
-            style={{ marginBottom: "1rem" }}
-          >
-            <Link to={frontmatter.slug}>
-              {frontmatter.title}
-            </Link>
+          <div key={frontmatter.slug} style={{ marginBottom: "1rem" }}>
+            <Link to={frontmatter.slug}>{frontmatter.title}</Link>
           </div>
         )
       })}
@@ -47,12 +44,9 @@ const Posting = ({ data }) => {
   )
 }
 
-export const query = graphql
-  `
+export const query = graphql`
   query HomepageQuery {
-    allMarkdownRemark (
-      sort: {order: DESC, fields: [frontmatter___date]}
-    ) {
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
       edges {
         node {
           frontmatter {
@@ -62,7 +56,7 @@ export const query = graphql
           }
         }
       }
-    } 
+    }
   }
 `
 

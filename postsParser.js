@@ -25,8 +25,7 @@ function ToHtml() {
 
     const body = data.substr(data.indexOf("---", 4) + 3, data.length)
 
-    if (body.indexOf('{% gist ') > -1) {
-
+    if (body.indexOf("{% gist ") > -1) {
     }
 
     const html = converter.makeHtml(data)
@@ -45,35 +44,53 @@ function ToHtml() {
 
     metadata["date"] = metadata["date"].replace(/&quot;/gi, "")
 
-    if (metadata['date'].indexOf('.') > -1) {
+    if (metadata["date"].indexOf(".") > -1) {
       metadata["date"] = metadata["date"].replace(/\./gi, "-")
     }
 
-    if (metadata['date'].indexOf(':') === -1) {
+    if (metadata["date"].indexOf(":") === -1) {
       metadata["date"] = metadata["date"] + " 00:00:00"
     }
 
-    metadata['tags'] = "[" + metadata['tags'].replace(/&quot;/gi, "") + "]"
+    metadata["tags"] = "[" + metadata["tags"].replace(/&quot;/gi, "") + "]"
 
     // console.log(metadata)
 
-    header = '---\r\n'
-      + 'id: ' + metadata['id'] + '\r\n'
-      + 'slug: /posts/' + metadata['title'].replace(/ /gi, "") + '\r\n'
-      + 'date: ' + metadata['date'] + '\r\n'
-      + 'title: ' + metadata['title'] + '\r\n'
-      + 'subtitle: ' + metadata['subtitle'] + '\r\n'
-      + 'tags: ' + metadata['tags'] + '\r\n'
-      + 'excerpt: ' + 'explain in content' + '\r\n'
-      + '---' + '\r\n'
+    header =
+      "---\r\n" +
+      "id: " +
+      metadata["id"] +
+      "\r\n" +
+      "slug: /posts/" +
+      metadata["title"].replace(/ /gi, "") +
+      "\r\n" +
+      "date: " +
+      metadata["date"] +
+      "\r\n" +
+      "title: " +
+      metadata["title"] +
+      "\r\n" +
+      "subtitle: " +
+      metadata["subtitle"] +
+      "\r\n" +
+      "tags: " +
+      metadata["tags"] +
+      "\r\n" +
+      "excerpt: " +
+      "explain in content" +
+      "\r\n" +
+      "---" +
+      "\r\n"
 
-    console.log(metadata['date'])
-    const date = metadata['date'].substr(0, 10).replace(/-/gi, "")
+    console.log(metadata["date"])
+    const date = metadata["date"].substr(0, 10).replace(/-/gi, "")
     const sdate = date.replace(/\./gi, "")
 
-    fs.writeFileSync('./content/posts/' + metadata['id'] + '-' + sdate + '.md', header + body)
+    fs.writeFileSync(
+      "./content/posts/" + metadata["id"] + "-" + sdate + ".md",
+      header + body
+    )
   })
 }
-
 
 ToHtml()
