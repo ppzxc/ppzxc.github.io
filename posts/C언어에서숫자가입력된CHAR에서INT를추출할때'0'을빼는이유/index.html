@@ -1,0 +1,260 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.31.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-e1dd62a8938f45fdbe10.js"/><link as="script" rel="preload" href="/framework-741ade27086b2708e961.js"/><link as="script" rel="preload" href="/app-b600f023aed17c2aa001.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"/><link as="fetch" rel="preload" href="/page-data\posts\C언어에서숫자가입력된CHAR에서INT를추출할때&#x27;0&#x27;을빼는이유\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="blog-post-container"><div class="blog-post"><h1>C언어에서 숫자가 입력된 CHAR에서 INT를 추출할때 &#x27;0&#x27;을 빼는 이유</h1><h2>2018.03.31</h2><div class="blog-post-content"><h1>C언어에서 숫자가 입력된 CHAR에서 INT를 추출할때 '0'을 빼는 이유</h1>
+<p><a href="https://www.acmicpc.net/problem/11720">baekjoon 11720번 문제</a>
+학부 이후 C를 오랜만에 만지게 된 계기가, 알고리즘 문제를 다시 풀면서 익숙한 java나 다른 언어를 제외하고 원시 언어를 이용해 풀기로 스스로 정했기 때문이다.
+문제를 풀어 나가던 중에, 숫자가 입력된 CHAR 자료형을 다루게 됐는데, INT 자료형으로 처리할 수 없는 문제라서 CHAR인 숫자에서 INT를 추출할때 0을 빼는 이유가 궁금해 졌다.</p>
+<h1>11720 INTEGER로 풀때</h1>
+<ul>
+<li>보다시피 알고리즘은 먹히고 간단한 자리수 까지는 문제가 풀린다.</li>
+<li>문제는 입력이 1 &#x3C;= N &#x3C;= 100까지라는 건데, 100자리까지 들어온 INT는 범위를 벗어나, 정상적으로 저장이 되지 않으므로 실패한다.</li>
+</ul>
+<p><div id="gist88719677" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-integer-c" class="file my-2">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
+      <tr>
+        <td id="file-integer-c-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-integer-c-LC1" class="blob-code blob-code-inner js-file-line">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>stdio.h<span class="pl-pds">&gt;</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-integer-c-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-integer-c-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">void</span>) </td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-integer-c-LC4" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-integer-c-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">int</span> n; <span class="pl-c"><span class="pl-c">//</span> 숫자의 개수</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-integer-c-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">int</span> nn; <span class="pl-c"><span class="pl-c">//</span> 숫자 n개가 공백없이 주어짐</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-integer-c-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">int</span> x;</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-integer-c-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-integer-c-LC9" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">scanf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%d</span><span class="pl-pds">&quot;</span></span>, &amp;n);</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-integer-c-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">scanf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%d</span><span class="pl-pds">&quot;</span></span>, &amp;nn);</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-integer-c-LC11" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-integer-c-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> i = 1 ~ 100</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-integer-c-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> 1자리수에서부터 100자리수 까지</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-integer-c-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> N = 1, 1</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-integer-c-LC15" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> N = 2, 1, 10</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-integer-c-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> N = 3, 1, 10, 100</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-integer-c-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> N = 4, 1, 10, 100, 1000</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-integer-c-LC18" class="blob-code blob-code-inner js-file-line">    <span class="pl-c"><span class="pl-c">//</span> N = 5, 1, 10, 100, 1000, 10000</span></td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-integer-c-LC19" class="blob-code blob-code-inner js-file-line">    </td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-integer-c-LC20" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">int</span> c = <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-integer-c-LC21" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> (<span class="pl-k">int</span> i = (<span class="pl-k">int</span>)<span class="pl-c1">pow</span>(<span class="pl-c1">10</span>, n-<span class="pl-c1">1</span>)+<span class="pl-c1">1</span>; i &gt;= <span class="pl-c1">1</span>; i = i / <span class="pl-c1">10</span>) </td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-integer-c-LC22" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-integer-c-LC23" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span>i = <span class="pl-c1">%d</span>, n = <span class="pl-c1">%d</span>, nn = <span class="pl-c1">%d</span>, nn / i = <span class="pl-c1">%d</span>, <span class="pl-c1">%d</span><span class="pl-cce">\r\n</span><span class="pl-pds">&quot;</span></span>, i, n, nn, nn/i, nn/i%<span class="pl-c1">10</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-integer-c-LC24" class="blob-code blob-code-inner js-file-line">        c = c + (nn/i%<span class="pl-c1">10</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-integer-c-LC25" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-integer-c-LC26" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%d</span><span class="pl-pds">&quot;</span></span>,c);</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-integer-c-LC27" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-integer-c-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-integer-c-LC28" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ppzxc/86952f7620f4ad0868a79b92497e37bd/raw/d3fd0d03485059ec43ce365f9aabd5f30a5d9cf6/INTEGER.C" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ppzxc/86952f7620f4ad0868a79b92497e37bd#file-integer-c">INTEGER.C</a>
+        hosted with &#10084; by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div></p>
+<h1>11720 CHAR로 풀때</h1>
+<ul>
+<li>이제 입력되는 숫자는 문자열로 받아 한자리씩 숫자로 바꿔야 한다.</li>
+<li>이때 각 자리수별 CHAR에 입력되 있는 숫자를 INT로 바꿔야 되는데, 문자 '0'을 빼는 이유는 CHAR = '1'이 입력되 있다는건 ASCII 숫자 49로 표현되기 때문이다.</li>
+<li>실제로 CHAR에 입력되어있는 숫자를 %d로 출력해 보면, 0이 48로 출력되고 <code>48은 ASCII 코드에서 문자 0을 의미한다.</code></li>
+<li>자세한 내용은 <a href="https://namu.wiki/w/%EC%95%84%EC%8A%A4%ED%82%A4%20%EC%BD%94%EB%93%9C">ASCII CODE</a></li>
+</ul>
+<p><div id="gist88719677" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-char-c" class="file my-2">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
+      <tr>
+        <td id="file-char-c-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-char-c-LC1" class="blob-code blob-code-inner js-file-line">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>stdio.h<span class="pl-pds">&gt;</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-char-c-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-char-c-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">void</span>) </td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-char-c-LC4" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-char-c-LC5" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">char</span> input[<span class="pl-c1">100</span>];</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-char-c-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">int</span> len, sum = <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-char-c-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">scanf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%d</span><span class="pl-pds">&quot;</span></span>, &amp;len);</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-char-c-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">scanf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%s</span><span class="pl-pds">&quot;</span></span>, input);</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-char-c-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-char-c-LC10" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> (<span class="pl-k">int</span> i = <span class="pl-c1">0</span>; i &lt; len; i++) {</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-char-c-LC11" class="blob-code blob-code-inner js-file-line">        sum += (input[i] - <span class="pl-s"><span class="pl-pds">&#39;</span>0<span class="pl-pds">&#39;</span></span>);</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-char-c-LC12" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-char-c-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-char-c-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">&quot;</span><span class="pl-c1">%d</span><span class="pl-cce">\n</span><span class="pl-pds">&quot;</span></span>, sum);</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-char-c-LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-char-c-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-char-c-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-char-c-LC17" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ppzxc/86952f7620f4ad0868a79b92497e37bd/raw/d3fd0d03485059ec43ce365f9aabd5f30a5d9cf6/CHAR.C" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ppzxc/86952f7620f4ad0868a79b92497e37bd#file-char-c">CHAR.C</a>
+        hosted with &#10084; by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div></p>
+<h1>Reference</h1>
+<blockquote>
+<ul>
+<li><a href="https://namu.wiki/w/%EC%95%84%EC%8A%A4%ED%82%A4%20%EC%BD%94%EB%93%9C">ASCII CODE</a></li>
+</ul>
+</blockquote></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/C언어에서숫자가입력된CHAR에서INT를추출할때'0'을빼는이유";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-2966d4d8fea208fd6f8f.js"],"app":["/app-b600f023aed17c2aa001.js"],"component---src-pages-404-js":["/component---src-pages-404-js-9c04155390b493ad90ef.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f9b840204938cc2fa7ed.js"],"component---src-pages-page-2-js":["/component---src-pages-page-2-js-6f9304e8e0b72f58449a.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-f4575b92721aea234178.js"],"component---src-templates-blog-posts-js":["/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"]};/*]]>*/</script><script src="/polyfill-2966d4d8fea208fd6f8f.js" nomodule=""></script><script src="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js" async=""></script><script src="/app-b600f023aed17c2aa001.js" async=""></script><script src="/framework-741ade27086b2708e961.js" async=""></script><script src="/webpack-runtime-e1dd62a8938f45fdbe10.js" async=""></script></body></html>

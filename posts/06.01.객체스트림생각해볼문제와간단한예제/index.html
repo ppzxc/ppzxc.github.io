@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.31.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-e1dd62a8938f45fdbe10.js"/><link as="script" rel="preload" href="/framework-741ade27086b2708e961.js"/><link as="script" rel="preload" href="/app-b600f023aed17c2aa001.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"/><link as="fetch" rel="preload" href="/page-data\posts\06.01.객체스트림생각해볼문제와간단한예제\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="blog-post-container"><div class="blog-post"><h1>06. 01. 객체 스트림  생각해볼 문제와 간단한 예제</h1><h2>2017.04.10</h2><div class="blog-post-content"><pre><code>Vector v = new Vector();
+Vector v1 = new Vector();
+Vector v2 = new Vector();
+Vector v3 = new Vector();
+v1.addElement(new String("data 1"));
+v1.addElement(new String("data 2"));
+v1.addElement(new String("data 3"));
+v2.addElement(new String("data 4"));
+v3.addElement(v2);
+v.addElement(v1);
+v.addElement(v3);
+</code></pre>
+<p>해당 객체들은 메모리에 Vector와 String이 복잡한 구조를 가지고 있다.</p>
+<ul>
+<li>이러한 복잡한 구조의 데이터를 파일에 저장하려면 어떻게 해야 할까?</li>
+<li>메모리 구조가 더욱 복잡할 경우에는 어떻게 저장할 수 있을까?</li>
+<li>저장한 후, 다시 읽어 들여 원래 형태로 구성하려면 어떻게 해야 할까?</li>
+</ul>
+<pre><code>import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
+public class ObjectStreamTest1
+{
+    public static void main(String[] args)
+    {
+        FileOutputStream fout = null;
+        ObjectOutputStream oos = null;
+
+        Vector v = new Vector();
+        Vector v1 = new Vector();
+        Vector v2 = new Vector();
+        Vector v3 = new Vector();
+        v1.addElement(new String("data 1"));
+        v1.addElement(new String("data 2"));
+        v1.addElement(new String("data 3"));
+        v2.addElement(new String("data 4"));
+        v3.addElement(v2);
+        v.addElement(v1);
+        v.addElement(v3);
+
+        try {
+            fout = new FileOutputStream("object.dat");
+            oos = new ObjectOutputStream(fout);
+
+            oos.writeObject(v);
+            oos.reset();
+            System.out.println("Saved");
+        } catch (Exception e) {
+        }finally{
+            try {
+                oos.close();
+                fout.close();
+            } catch (Exception e) { }
+        }
+
+    }
+}
+</code></pre>
+<p>writeObject() 메소드 한번으로 메모리 내의 모든 내용들이 object.bat 파일에 저장된다. 출력 후에는 반드시 reset() 메소드를 호출해야 한다. 그렇지 않을 경우 메모리 leak이 발생할 수 있기 떄문이다.</p>
+<p>이제 읽어 들여보자.</p>
+<pre><code>public class ObjectStreamTest2
+{
+    public static void main(String[] args)
+    {
+        FileInputStream fin = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fin = new FileInputStream("object.bat");
+            ois = new ObjectInputStream(fin);
+
+            Vector v = (Vector)ois.readObject();
+            Vector v1 = (Vector)v.get(0);
+
+            String d1 = (String)v1.get(0);
+            String d2 = (String)v1.get(1);
+            String d3 = (String)v1.get(2);
+
+            Vector v3 = (Vector)v.get(1);
+            Vector v2 = (Vector)v3.get(0);
+
+            String d4 = (String)v2.get(0);
+
+            System.out.println(d1);
+            System.out.println(d2);
+            System.out.println(d3);
+            System.out.println(d4);
+        } catch (Exception e) {
+        }finally{
+            try {
+                fin.close();
+                ois.close();
+            } catch (Exception e) { }
+        }
+
+    }
+}
+</code></pre>
+<p>출처 : 김성박 송지훈 공저, 『 자바 IO &#x26; NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 6장 인용.</p></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/06.01.객체스트림생각해볼문제와간단한예제";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-2966d4d8fea208fd6f8f.js"],"app":["/app-b600f023aed17c2aa001.js"],"component---src-pages-404-js":["/component---src-pages-404-js-9c04155390b493ad90ef.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f9b840204938cc2fa7ed.js"],"component---src-pages-page-2-js":["/component---src-pages-page-2-js-6f9304e8e0b72f58449a.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-f4575b92721aea234178.js"],"component---src-templates-blog-posts-js":["/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"]};/*]]>*/</script><script src="/polyfill-2966d4d8fea208fd6f8f.js" nomodule=""></script><script src="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js" async=""></script><script src="/app-b600f023aed17c2aa001.js" async=""></script><script src="/framework-741ade27086b2708e961.js" async=""></script><script src="/webpack-runtime-e1dd62a8938f45fdbe10.js" async=""></script></body></html>

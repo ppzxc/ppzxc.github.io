@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.31.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-e1dd62a8938f45fdbe10.js"/><link as="script" rel="preload" href="/framework-741ade27086b2708e961.js"/><link as="script" rel="preload" href="/app-b600f023aed17c2aa001.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"/><link as="fetch" rel="preload" href="/page-data\posts\자바와다중상속에대한고찰\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="blog-post-container"><div class="blog-post"><h1>자바와 다중 상속에 대한 고찰</h1><h2>2018.04.01</h2><div class="blog-post-content"><h1>상속</h1>
+<ul>
+<li>부모-자식 관계가 형성 된다.</li>
+<li>부모의 상태, 행동을 자식이 그대로 물려 받아 사용 가능하다.</li>
+<li>부모의 상태, 행동을 자식이 변경해 사용 가능 하다.</li>
+<li>자식은 부모가 될수 있으나, 부모는 자식이 될 수없다. (자식이 기능을 확장한 경우에)</li>
+<li>상속은 재사용성 측면에서 부모의 상태와 행동을 재사용 할수 있는 테크닉</li>
+<li>그러나 처음부터 상속을 고려해 만들어진 클래스가 아니라면 부작용이 생길 수 있다.</li>
+<li>의도치 않은 상속은 부모 자식간의 강한 의존성을 생성하게 되고 캡슐화가 깨질수도 있다는 얘기이다.</li>
+<li>이를 막기위해 final로 행동이나 상태를 선언하거나, 최소한 상속을 고려해 문서화를 고려해 볼 수 있다.</li>
+</ul>
+<h1>다중 상속</h1>
+<ul>
+<li>할아버지를 상속받은 아버지 1, 아버지 2가 있고 이 둘을 다중 상속 받은 자식이 있다고 하자.</li>
+<li>두 명의 아버지가 할아버지의 행동을 오버라이드 했다면 똑같은 행동이 자식에게도 존재할 것이다.</li>
+<li>메소드가 중복으로 발생한 경우이며, 이 행동을 자식이 호출할 경우 아버지1의 메소드인지 아버지2의 메소드인지 호출 당하는 쪽이 어느쪽인지 모호하다.</li>
+<li>다중 상속을 지원하는 언어는 이를 피해가기 위한 문제 해결 방법을 지원한다.</li>
+<li>이런 저런 문제로 다중 상속이 위험하고 단일 상속을 강제 하는것은 객체의 단일 책임 원칙을 준수할 수 있지만, 안타깝게도 다중 상속은 매우 유용하다.</li>
+<li>또 단일 객체 상속은 객체가 여러가지 특성을 가져야할 때 곤란하다.</li>
+<li>객체를 모델링할때 하나의 객체가 여러 특성을 가지는 예로 사람은 학생이면서 동시에 가족이 될수 있고, 과외를 진행하는 선생님이 될수도 있다.</li>
+</ul>
+<h1>자바와 다중 상속 그리고 인터페이스</h1>
+<ul>
+<li>자바는 다중 상속을 지원하며, 자바의 구현 방식은 다이아몬드 문제 뿐만 아니라 다중 상속의 복잡성도 해결한다.</li>
+<li>모호하게 들릴 수 있지만, 자바는 부모 객체가 특별한 조건에 부합할때에만 다중 상속을 구현하게끔 강제했다.</li>
+<li>부모의 객체가 순수하게 추상화된 객체만 다중 상속을 허용한다.</li>
+<li>자바에서 이러한 객체를 인터페이스라 부른다.</li>
+</ul>
+<h1>자바와 상속, 아니 확장</h1>
+<ul>
+<li>자바에선 상속이라는 개념을, 상속의 형태를 <code>extends</code> 확장이라 표현한다.</li>
+<li>interface를 구현할때 쓰이는 <code>implements</code>는 구현이라 한다.</li>
+<li>개념상 상속은 내가 물려받은 재산에 초점이 맞춰져 있다.</li>
+<li>개념상 확장은 내가 해야할 행동에 초점이 맞춰져 있다.</li>
+<li>확장은 is-a 개념을 가지고 있으며, A가 B를 상속받았을때, B is a A 관계가 성립함을 뜻한다.</li>
+<li>확장은 어떤 객체에 메소드를 추가해 성능을 높이거나 기능을 추가하는 것이다.</li>
+<li>상속은 has-a 개념을 내포하고 있으며, 이는 변질될 가능성을 내포하고 있다.</li>
+<li>아버지에게 물려받은 상태와 행동을 자식이 오버라이딩해 온갖 잡다한 행동과 상태로 채워나간다면, 아들은 아버지를 아버지라 부를수 있을까?</li>
+</ul>
+<h1>자바와 상속, 확장</h1>
+<ul>
+<li>개발자가 is-a 개념을 상속으로 사용한다면 자바는 다중 상속을 지원하는 언어이다.</li>
+<li>반대로 has-a 개념으로 상속을 사용한다면, 자바는 다중 상속을 지원하지 않는다.</li>
+<li>C++는 이를 개발자가 실천해야할 규볌으로 열어놓았을뿐, Java는 언어 차원에서 강제할 뿐이다.</li>
+</ul>
+<p>결론은 심사 숙고해서 잘 사용하자.</p>
+<h1>Reference</h1>
+<blockquote>
+<ul>
+<li><a href="http://gyumee.egloos.com/m/3200829">자바가 다중 상속을 지원하지 않는 이유?</a></li>
+<li><a href=""></a></li>
+</ul>
+</blockquote></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/자바와다중상속에대한고찰";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-2966d4d8fea208fd6f8f.js"],"app":["/app-b600f023aed17c2aa001.js"],"component---src-pages-404-js":["/component---src-pages-404-js-9c04155390b493ad90ef.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f9b840204938cc2fa7ed.js"],"component---src-pages-page-2-js":["/component---src-pages-page-2-js-6f9304e8e0b72f58449a.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-f4575b92721aea234178.js"],"component---src-templates-blog-posts-js":["/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"]};/*]]>*/</script><script src="/polyfill-2966d4d8fea208fd6f8f.js" nomodule=""></script><script src="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js" async=""></script><script src="/app-b600f023aed17c2aa001.js" async=""></script><script src="/framework-741ade27086b2708e961.js" async=""></script><script src="/webpack-runtime-e1dd62a8938f45fdbe10.js" async=""></script></body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.31.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-e1dd62a8938f45fdbe10.js"/><link as="script" rel="preload" href="/framework-741ade27086b2708e961.js"/><link as="script" rel="preload" href="/app-b600f023aed17c2aa001.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"/><link as="fetch" rel="preload" href="/page-data\posts\자바병렬프로그래밍-동시성concurrency과-병렬성Parallelism\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="blog-post-container"><div class="blog-post"><h1>자바병렬프로그래밍-동시성concurrency과-병렬성Parallelism</h1><h2>2017.05.13</h2><div class="blog-post-content"><h1>병렬프로그래밍 - 동시성 Concurrency 과 병렬성 Parallelism</h1>
+<h2>무슨 차이?</h2>
+<ul>
+<li>사진 부터 보자</li>
+</ul>
+<p><figure class="gatsby-resp-image-figure" style="">
+    <span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 409px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/44ac36e46ff16476ea8fb95769253296/ff023/parallelism-vs-concurrency.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 89.33333333333334%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADfUlEQVQ4y31USU9TURRujAujxikSFw4rXRl1Y3ThwsQ/Y2JiQuLG+AtMHBhMEwI0QAIdoGUsIEMoQ6HEii19r/NE+9pSaGkpY4HC5z0HtKDoS5p7e+673zvf+b5zVBDP6uoq0uk0YrEYcrkcotEostksPB4PMpkMJElCIpGA2+2Gw+EUewWnPQcHB1DRZnp6GjqdDgaDAePj46irq4PT6URNTQ2varUaw8PDfN7W1gazeZABMuEA7O8/QPpUjaTPzzEGpEtmsxkWiwVzc3Po7u5GKBRCX18fZz02NoZAIMDvybIEvzeA1BpgqdbCf/Ea0hV34NIZyoClUgl7e3vY2dnB/v4+dnd3OVYsFjm+tbXFsc3NTRQKAqlUxIa4N6XuQOrRY6w9fQ6vqbMM6HK5MDo6ylk6HA50dHRw3Zqbm7lutFJZTCYT2tsNGBu1cIa2ej2cKhUiZy7AqdWXAenl1tZW9PT0MO2GhgZ4vV40NjbC5/NBq9XCarViZGQEQ0NfMTU1zZfzSQUeQTVkNCETi5cBSVlScXFxkRVPpZK/ld/Y2MDy8jLTz+fzWF9fZ/r/VZnqFostICyE8Am1lEQS4XBI2MaLhWgES8sZyKIEsuxBUIgjSzLcYr8nAP4CPPgjePzwn7GjNeGcx8zLV3C8rkR07keZMlEpFApMjVaiStSoDLTG43EoisIlIbGy4j16wqJ2/ks3kL11F5LumCikLnmvqalJFHyKDU3KV1VVsS/r6+vR29uL/v4BaDSNsE7aoOQBR7MJyXv3sfbwCTwC/DfgzMwMd8jg4CADGY1GRCIRtgkZmuIEbLfbMTk5iXAwyJd9Xb2YPX8Vvus34TruQzIumZqMu729zf9pJYVJUaJNZxQn9Xd3inw56ZYxUvkG1rfvEBE9fsKHNptNUOrn9qIM/X4/e5MGhF6v5yzJ/BqNBt9m7SiURMu2muC5XIFExW1I7cYy4MDAAHdHS0sLG7i2tpY7hIYCfYAGwsTEBJeF+nveMY91IbTc1gnlgWi9Zy9O1nBpaYnNnRd0iCaNLDIy0aNeJuWJOv2ItjAuX452dcOtOovFc1fg0h8Nh/2jw1VhnagQIh5XhH0yUIRVEkqC5yLZKBI+PEslkwj6g0hTXKzfP36GVPNFjC/fIeAvs9KXKdOVlRxPlIzwGvmSMqbsac/nAogYUOw04/8E+13rSwhkQikAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/44ac36e46ff16476ea8fb95769253296/e922d/parallelism-vs-concurrency.webp 375w,
+/static/44ac36e46ff16476ea8fb95769253296/f3d17/parallelism-vs-concurrency.webp 409w"
+              sizes="(max-width: 409px) 100vw, 409px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/44ac36e46ff16476ea8fb95769253296/ae393/parallelism-vs-concurrency.png 375w,
+/static/44ac36e46ff16476ea8fb95769253296/ff023/parallelism-vs-concurrency.png 409w"
+            sizes="(max-width: 409px) 100vw, 409px"
+            type="image/png"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/44ac36e46ff16476ea8fb95769253296/ff023/parallelism-vs-concurrency.png"
+            alt="parallelism-vs-concurrency"
+            title="parallelism-vs-concurrency"
+            loading="lazy"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span>
+    <figcaption class="gatsby-resp-image-figcaption">parallelism-vs-concurrency</figcaption>
+  </figure></p>
+<ul>
+<li><a href="http://alvinalexander.com/photos/parallelism-vs-concurrency-programming">출처</a></li>
+<li>Concurrent = two queues and one coffee machine.</li>
+<li>Parallel = Two queues and two coffee machines.</li>
+<li>동시성과 병렬성을 설명하는 한장의 그림이다.</li>
+<li>Concurrency = 동시성, 동시 실행</li>
+<li>Parallelism = 병렬성, 평행성, 병렬 실행, 평행 실행</li>
+</ul>
+<h2>먼저 Process와 Thread 부터</h2>
+<h3>Process?</h3>
+<ul>
+<li>Process는 Program이 실행되고 있는 상태를 뜻한다.</li>
+<li>Program은 하드 디스크에서 실행을 기다리고 있는 코드, 또는 실행 파일이다.</li>
+<li>OS로 부터 할당받아 실행된다.</li>
+</ul>
+<h3>Thread?</h3>
+<ul>
+<li>하나의 Process내에서 실행되는 하나의 작업 단위이다.</li>
+<li>메모리와 IO 장치 및 컴퓨터 자원들을 공유한다.</li>
+</ul>
+<h3>둘의 관계?</h3>
+<ul>
+<li>애플리케이션이 실행될 때 하나의 Process가 발생한다.</li>
+<li>해당 Process가 어떠한 작업을 수행할 떄 컴퓨터 자원을 최대한 활용하기 위해 작업을 병렬로 수행해야 한다.</li>
+<li>Thread를 이용해서 컴퓨터의 놀고 있는 자원을 최대한 사용하게 한다.</li>
+<li>이를 Multi-Thread Programming이라 한다.</li>
+<li>IO를 기다리게 하지 않고 다른 일을 하게 하거나, 놀고 있는 여분의 CPU 코어들을 최대한 사용하게 하는 것이 핵심이다.</li>
+</ul>
+<h1>그렇다면 동시성과 병행성은 무엇일까?</h1>
+<h2>Parallelism</h2>
+<ul>
+<li><code>language에서 Parallelism이라 불리는 대표적인 예가 Thread 이다. Thread는 그야말로 동시에 평행적으로 실행 된다.</code></li>
+</ul>
+<h2>Concurrency</h2>
+<ul>
+<li>
+<p><code>Concurrency는 Parallelism의 난해함을 풀어낸 방법이다. 대표적인 예로 Coroutine이 있다.</code></p>
+<ul>
+<li><code>Coroutine이란?</code></li>
+<li>유니티에서 코루틴은 서브루틴의 일종으로 진입시점이 여러개인 서브루틴을 말한다.</li>
+</ul>
+</li>
+<li>특정 라인이 수행된 다음 차근차근 수행되는 Sync 방식이 아니라 Async하게 코드를 실행시키고, 결과 값이 오거나 혹은 필요한 때에 다음 루틴을 실행 시키게 할 수 있어서 효율적으로 자원을 활용할 수 있다. 덤으로 코드가 Thread로 구현했을 때보다 훨씬 깔끔하게 나오고, Locking/UnLocking 메커니즘을 싹 걷어낼 수 있게 된다.</li>
+</ul>
+<h2>Concurrency의 개념을 적극적으로 도입한 Go Language</h2>
+<pre><code class="language-go">package main
+import "fmt"
+
+func f(from string) {
+    for i := 0; i &#x3C; 10; i++ {
+        fmt.Println(from, ":", i)
+    }
+}
+
+func main() {
+        f("direct")
+
+        go f("goroutine")
+
+        go func(msg string) {
+                fmt.Println(msg)
+        }("going")
+
+        var input string
+        fmt.Scanln(&#x26;input)
+        fmt.Println("done")
+}
+</code></pre>
+<ul>
+<li>Go 언어에서 Concurrency의 개념은 Goroutine으로 구현되어있다.</li>
+<li>Goroutine은 multi-thread의 백단 dirty한 부분에 손 하나 대지 않고 쉽게 Async한 일들을 처리할 수 있게 해준다.</li>
+<li>Goroutine은 자원을 Locking/Unlocking하는 코드들이 불필요하다.</li>
+<li>아랫단의 일들을 golang의 runtime이 알아서 해주고 Thread를 여러개 실행 시키도록 셋팅하면 각 thread에 goroutine을 할당하여 자원을 관리하는 일까지도 언어단에서 알아서 해준다.</li>
+<li>개발자들은 C/C++에서 thread를 사용하는 것과 마찬가지로 적절한 작업들에 goroutine을 호출시키고 channel을 이용해서 결과값들을 받아서 훨씬 수월하게 처리할 수 있다.</li>
+<li>이러한 언어의 Concurrency는 기존에 C나 C++에서 다루었었던 멀티쓰레드와 자원 관리의 복잡함으로부터 개발자들을 해방시키는 역할을 해준다.</li>
+<li>동시에 Multi-Thread로 해냈던 수준의 Async하고 parallel한 작업들을 흉내내거나 손쉽게 수행할 수 있도록 해준다.</li>
+<li><a href="http://rapapa.net/?p=2704">출처</a></li>
+</ul></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/자바병렬프로그래밍-동시성concurrency과-병렬성Parallelism";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-2966d4d8fea208fd6f8f.js"],"app":["/app-b600f023aed17c2aa001.js"],"component---src-pages-404-js":["/component---src-pages-404-js-9c04155390b493ad90ef.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f9b840204938cc2fa7ed.js"],"component---src-pages-page-2-js":["/component---src-pages-page-2-js-6f9304e8e0b72f58449a.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-f4575b92721aea234178.js"],"component---src-templates-blog-posts-js":["/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js"]};/*]]>*/</script><script src="/polyfill-2966d4d8fea208fd6f8f.js" nomodule=""></script><script src="/component---src-templates-blog-posts-js-55b1b08a7709cfea73f9.js" async=""></script><script src="/app-b600f023aed17c2aa001.js" async=""></script><script src="/framework-741ade27086b2708e961.js" async=""></script><script src="/webpack-runtime-e1dd62a8938f45fdbe10.js" async=""></script></body></html>
