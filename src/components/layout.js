@@ -25,19 +25,23 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <div style={{
+      background: `#E8E8E8`,
+    }}>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} description={data.site.siteMetadata?.description || `Description`}/>
       <div
         style={{
           margin: `0 auto`,
           maxWidth: 960,
           padding: `0 1.0875rem 1.45rem`,
+          background: `white`,
         }}
       >
         <main>{children}</main>
         <footer
           style={{
             marginTop: `2rem`,
+            textAlign: `center`,
           }}
         >
           © {new Date().getFullYear()}, Built with
@@ -45,7 +49,7 @@ const Layout = ({ children }) => {
           <a href="https://www.gatsbyjs.com">Gatsby</a>
         </footer>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -17,7 +17,7 @@ const Header = ({ siteTitle, description }) => (
       }}
     >
       <h1 style={{
-        margin: 0,
+        // margin: 0,
         textAlign: `center`,
       }}>
         <Link
