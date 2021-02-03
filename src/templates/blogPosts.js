@@ -11,7 +11,7 @@ export default function Template({ data }) {
   return (
     <Layout>
       <div className="blog-post-container">
-        <div className="blog-post" style={GithubMarkDown}>
+        <div className="blog-post">
           <h1
             style={{
               borderBottom: `dotted 2px #ff6633`,
@@ -32,7 +32,7 @@ export default function Template({ data }) {
             {frontmatter.date}
           </h2>
           <div
-            style={DefaultCss}
+            style={GithubMarkDown}
             className="blog-post-content"
             dangerouslySetInnerHTML={{ __html: html }}
           />
