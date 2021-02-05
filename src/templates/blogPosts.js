@@ -1,32 +1,42 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import DefaultCss from "./default.css"
+// import DefaultCss from "./default.css"
 import GithubMarkDown from "./github-markdown.css"
 
 export default function Template({ data }) {
   // this prop will be injected by the GraphQL query below.
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark
+
+  // console.log(html)
   return (
     <Layout>
-      <div className="blog-post-container">
+      <div className="blog-post-container" style={{
+        margin: "50px",
+        padding: "50px",
+        background: "#F5F5F5"
+      }}>
         <div className="blog-post">
           <h1
             style={{
-              borderBottom: `dotted 2px #ff6633`,
+              // borderBottom: `dotted 2px #ff6633`,
               display: `table`,
-              marginLeft: `auto`,
-              marginRight: `auto`,
-              textIndent: `0`,
-              textAlign: `center`,
-          }}>
+              margin: "auto",
+              // marginLeft: `auto`,
+              // marginRight: `auto`,
+              // textIndent: `0`,
+              // textAlign: `center`,
+            }}
+          >
             <p/>
             {frontmatter.title}
           </h1>
           <h2
             style={{
               textAlign: `center`,
+              paddingBottom: "30px",
+              borderBottom: "2px solid black",
             }}
           >
             {frontmatter.date}

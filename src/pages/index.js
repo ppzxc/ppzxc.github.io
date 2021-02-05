@@ -6,7 +6,10 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const IndexPage = ({ data }) => (
-  <Layout>
+  <Layout style={{
+    padding: "0",
+    magin: "0"
+  }}>
     <SEO title="Home" />
     <Posting data={data} />
 
@@ -30,13 +33,45 @@ const Posting = ({ data }) => {
         flexDirection: "column",
         alignItems: "center",
         fontFamily: "avenir",
+        background: "#9DC8C8"
       }}
     >
       {edges.map(edge => {
         const { frontmatter } = edge.node
         return (
-          <div key={frontmatter.slug} style={{ marginBottom: "1rem" }}>
-            <Link to={frontmatter.slug}>{frontmatter.title}</Link>
+          <div
+            key={frontmatter.id}
+            style={{
+              margin: "5px",
+              padding: "5px",
+              boxSizing: "border-box",
+              width: "50%",
+              // border: "solid #58C9B9 1px",
+              border: "solid #519D9E 1px",
+              background: "#519D9E",
+              display: "inline-block"
+            }}
+          >
+            <Link
+              to={frontmatter.slug}
+              style={{
+                color: "white",
+                textDecoration: "none",
+                position: "relative",
+                alignItems: "center"
+              }}>
+              <div>
+                {frontmatter.title}
+              </div>
+              {/*<div style={{*/}
+              {/*  position: "relative",*/}
+              {/*  width: "400px",*/}
+              {/*  height: "200px"*/}
+              {/*}}*/}
+              {/*>*/}
+              {/*  {frontmatter.title}*/}
+              {/*</div>*/}
+            </Link>
           </div>
         )
       })}
