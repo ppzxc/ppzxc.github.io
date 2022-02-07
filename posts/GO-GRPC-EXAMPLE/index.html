@@ -1,620 +1,93 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.1db04b87830ece3ecd1b.css">.markdown-body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px}@media (max-width:767px){.markdown-body{padding:15px}}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:none}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1:hover .anchor .octicon-link:before,.markdown-body h2:hover .anchor .octicon-link:before,.markdown-body h3:hover .anchor .octicon-link:before,.markdown-body h4:hover .anchor .octicon-link:before,.markdown-body h5:hover .anchor .octicon-link:before,.markdown-body h6:hover .anchor .octicon-link:before{width:16px;height:16px;content:" ";display:inline-block;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'/%3E%3C/svg%3E")}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:initial}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:initial;overflow:visible}.markdown-body input{font:inherit;margin:0;overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{height:0;margin:15px 0;overflow:hidden;background:transparent;border-bottom:1px solid #dfe2e5}.markdown-body hr:after,.markdown-body hr:before{display:table;content:""}.markdown-body hr:after{clear:both}.markdown-body table{border-spacing:0;border-collapse:collapse}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:0;margin-bottom:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-top:0;margin-bottom:10px}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{padding-left:0;margin-top:0;margin-bottom:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px}.markdown-body pre{margin-top:0;margin-bottom:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{margin:0;-webkit-appearance:none;appearance:none}.markdown-body :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{color:#fafbfc;background-color:#b31d28}.markdown-body .pl-c2{color:#fafbfc;background-color:#d73a49}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{font-weight:700;color:#22863a}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{font-weight:700;color:#005cc5}.markdown-body .pl-mi{font-style:italic;color:#24292e}.markdown-body .pl-mb{font-weight:700;color:#24292e}.markdown-body .pl-md{color:#b31d28;background-color:#ffeef0}.markdown-body .pl-mi1{color:#22863a;background-color:#f0fff4}.markdown-body .pl-mc{color:#e36209;background-color:#ffebda}.markdown-body .pl-mi2{color:#f6f8fa;background-color:#005cc5}.markdown-body .pl-mdr{font-weight:700;color:#6f42c1}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{text-decoration:underline;color:#032f62}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-top:0!important;padding-bottom:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-top:8px!important;padding-bottom:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}.markdown-body hr{border-bottom-color:#eee}.markdown-body kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fafbfc;border:1px solid #d1d5da;border-radius:3px;box-shadow:inset 0 -1px 0 #d1d5da}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body details,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}.markdown-body blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eaecef}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#6a737d}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #dfe2e5}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{max-width:100%;box-sizing:initial;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{padding:.2em .4em;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}.markdown-body pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:initial;border:0}.markdown-body .commit-tease-sha{display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:90%;color:#444d56}.markdown-body .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}.markdown-body .blob-wrapper{overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{width:1%;min-width:50px;padding-right:10px;padding-left:10px;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;line-height:20px;color:rgba(27,31,35,.3);text-align:right;white-space:nowrap;vertical-align:top;cursor:pointer;-webkit-user-select:none;-ms-user-select:none;user-select:none}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{position:relative;padding-right:10px;padding-left:10px;line-height:20px;vertical-align:top}.markdown-body .blob-code-inner{overflow:visible;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;color:#24292e;word-wrap:normal;white-space:pre}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{cursor:pointer;background:#ffea7f}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;-o-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;-o-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;-o-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;-o-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;-o-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;-o-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;-o-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;-o-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;-o-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;-o-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;-o-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;-o-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}</style><meta name="generator" content="Gatsby 2.26.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-cbadcd868a564fd0dc2f.js"/><link as="script" rel="preload" href="/framework-a445a942d18bd3dc90d1.js"/><link as="script" rel="preload" href="/app-b5f43a8954f3ced75d8c.js"/><link as="script" rel="preload" href="/styles-755093da0c07f4b49226.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-38c03404285f1584b015.js"/><link as="fetch" rel="preload" href="/page-data\posts\GO-GRPC-EXAMPLE\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/256249292.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="background:#9DC8C8"><header style="background:#9DC8C8;margin:0;padding:0"><div style="margin:0 auto;max-width:960px;padding:1.45rem 1.0875rem"><h1 style="text-align:center"><a style="color:white;text-decoration:none" href="/"><div style="font-size:40px">I&#x27;m Fisherman!</div><span style="font-size:20px">or developer...</span></a></h1></div></header><div><main><div class="blog-post-container" style="margin:50px;padding:50px;background:#F5F5F5"><div class="blog-post"><h1 style="display:table;margin:auto"><p></p>2021-02-06 ELK STACK</h1><h2 style="text-align:center;padding-bottom:30px;border-bottom:2px solid black">2021.02.06</h2><div class="blog-post-content"><h1>ELK Stack, docker-compose</h1>
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.1db04b87830ece3ecd1b.css">.markdown-body{box-sizing:border-box;min-width:200px;max-width:980px;margin:0 auto;padding:45px}@media (max-width:767px){.markdown-body{padding:15px}}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:none}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1:hover .anchor .octicon-link:before,.markdown-body h2:hover .anchor .octicon-link:before,.markdown-body h3:hover .anchor .octicon-link:before,.markdown-body h4:hover .anchor .octicon-link:before,.markdown-body h5:hover .anchor .octicon-link:before,.markdown-body h6:hover .anchor .octicon-link:before{width:16px;height:16px;content:" ";display:inline-block;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'/%3E%3C/svg%3E")}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:initial}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:initial;overflow:visible}.markdown-body input{font:inherit;margin:0;overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{height:0;margin:15px 0;overflow:hidden;background:transparent;border-bottom:1px solid #dfe2e5}.markdown-body hr:after,.markdown-body hr:before{display:table;content:""}.markdown-body hr:after{clear:both}.markdown-body table{border-spacing:0;border-collapse:collapse}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:0;margin-bottom:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-top:0;margin-bottom:10px}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{padding-left:0;margin-top:0;margin-bottom:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px}.markdown-body pre{margin-top:0;margin-bottom:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{margin:0;-webkit-appearance:none;appearance:none}.markdown-body :checked+.radio-label{position:relative;z-index:1;border-color:#0366d6}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{color:#fafbfc;background-color:#b31d28}.markdown-body .pl-c2{color:#fafbfc;background-color:#d73a49}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{font-weight:700;color:#22863a}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{font-weight:700;color:#005cc5}.markdown-body .pl-mi{font-style:italic;color:#24292e}.markdown-body .pl-mb{font-weight:700;color:#24292e}.markdown-body .pl-md{color:#b31d28;background-color:#ffeef0}.markdown-body .pl-mi1{color:#22863a;background-color:#f0fff4}.markdown-body .pl-mc{color:#e36209;background-color:#ffebda}.markdown-body .pl-mi2{color:#f6f8fa;background-color:#005cc5}.markdown-body .pl-mdr{font-weight:700;color:#6f42c1}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{text-decoration:underline;color:#032f62}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-top:0!important;padding-bottom:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-top:8px!important;padding-bottom:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}.markdown-body hr{border-bottom-color:#eee}.markdown-body kbd{display:inline-block;padding:3px 5px;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;line-height:10px;color:#444d56;vertical-align:middle;background-color:#fafbfc;border:1px solid #d1d5da;border-radius:3px;box-shadow:inset 0 -1px 0 #d1d5da}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body details,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e1e4e8;border:0}.markdown-body blockquote{padding:0 1em;color:#6a737d;border-left:.25em solid #dfe2e5}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eaecef}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#6a737d}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:600}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #dfe2e5}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{max-width:100%;box-sizing:initial;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{padding:.2em .4em;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f6f8fa;border-radius:3px}.markdown-body pre code{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:initial;border:0}.markdown-body .commit-tease-sha{display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:90%;color:#444d56}.markdown-body .full-commit .btn-outline:not(:disabled):hover{color:#005cc5;border-color:#005cc5}.markdown-body .blob-wrapper{overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{width:1%;min-width:50px;padding-right:10px;padding-left:10px;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;line-height:20px;color:rgba(27,31,35,.3);text-align:right;white-space:nowrap;vertical-align:top;cursor:pointer;-webkit-user-select:none;-ms-user-select:none;user-select:none}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{position:relative;padding-right:10px;padding-left:10px;line-height:20px;vertical-align:top}.markdown-body .blob-code-inner{overflow:visible;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;font-size:12px;color:#24292e;word-wrap:normal;white-space:pre}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{cursor:pointer;background:#ffea7f}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;-o-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;-o-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;-o-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;-o-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;-o-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;-o-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;-o-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;-o-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;-o-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;-o-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;-o-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;-o-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}</style><meta name="generator" content="Gatsby 2.26.1"/><title data-react-helmet="true"></title><link rel="icon" href="/favicon-32x32.png?v=4a9773549091c227cd2eb82ccd9c5e3a" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=4a9773549091c227cd2eb82ccd9c5e3a"/><link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet"/><link as="script" rel="preload" href="/webpack-runtime-cbadcd868a564fd0dc2f.js"/><link as="script" rel="preload" href="/framework-a445a942d18bd3dc90d1.js"/><link as="script" rel="preload" href="/app-b5f43a8954f3ced75d8c.js"/><link as="script" rel="preload" href="/styles-755093da0c07f4b49226.js"/><link as="script" rel="preload" href="/component---src-templates-blog-posts-js-38c03404285f1584b015.js"/><link as="fetch" rel="preload" href="/page-data\posts\GO-GRPC-EXAMPLE\page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/256249292.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data\app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="background:#9DC8C8"><header style="background:#9DC8C8;margin:0;padding:0"><div style="margin:0 auto;max-width:960px;padding:1.45rem 1.0875rem"><h1 style="text-align:center"><a style="color:white;text-decoration:none" href="/"><div style="font-size:40px">I&#x27;m Fisherman!</div><span style="font-size:20px">or developer...</span></a></h1></div></header><div><main><div class="blog-post-container" style="margin:50px;padding:50px;background:#F5F5F5"><div class="blog-post"><h1 style="display:table;margin:auto"><p></p>2021-02-03 GO GRPC EXAMPLE</h1><h2 style="text-align:center;padding-bottom:30px;border-bottom:2px solid black">2021.02.02</h2><div class="blog-post-content"><h1>GRPC</h1>
 <ul>
-<li><a href="https://github.com/ppzxc/elk-docker-compose">ELK STACK</a></li>
+<li>GRPC의 기본이나 개념은 모두 알고 있다는 가정하에 코드로 직접 GRPC를 구현해보고 테스트 해봄</li>
+<li>GRPC 활용 및 사용 방법 등에 대한 샘플은 <a href="https://github.com/grpc/grpc-go/tree/master/examples/features">grpc-go</a> 에 잘되어 있음</li>
+<li>아래 프로젝트는 직접 echo, stream 전송 흐름에 대한 프로젝트를 구현해보고 물리적으로 구분된 두개의 머신에서 테스트를 진행해보기 위한 프로젝트</li>
 </ul>
-<pre><code class="language-docker-compose">version: '2.2'
-
-services:
-  traefik:
-    image: "traefik:v2.1.2"
-    container_name: "traefik"
-    environment:
-      - "TZ=Asia/Seoul"
-    command:
-      - "--log.level=error"
-      - "--log.filepath=/opt/traefik/default.log"
-      - "--log.format=json"
-      - "--accesslog.filepath=/opt/traefik/access.log"
-      - "--accesslog.format=json"
-
-      - "--api.insecure=true"
-      - "--api.dashboard=true"
-      - "--api.debug=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.file.directory=/traefik/traefik.toml"
-
-      - "--entrypoints.entrypoint-http.address=:80"
-      - "--entrypoints.entrypoint-https.address=:443"
-      - "--entrypoints.entrypoint-traefik.address=:8578"
-      - "--entrypoints.entrypoint-redis.address=:8579"
-      - "--entrypoints.entrypoint-inside-redis.address=:8580"
-
-      - "--entrypoints.entrypoint-mt01.address=:12001"
-      - "--entrypoints.entrypoint-mt02.address=:12002"
-      - "--entrypoints.entrypoint-mt03.address=:12003"
-      - "--entrypoints.entrypoint-cdn01.address=:12004"
-      - "--entrypoints.entrypoint-cdn02.address=:12005"
-      - "--entrypoints.entrypoint-data01.address=:12006"
-      - "--entrypoints.entrypoint-data02.address=:12007"
-      - "--entrypoints.entrypoint-data03.address=:12008"
-      - "--entrypoints.entrypoint-ing01.address=:12009"
-      - "--entrypoints.entrypoint-idx.address=:12010"
-      - "--entrypoints.entrypoint-kibana.address=:12011"
-
-      - "--certificatesresolvers.nanoit-cert.acme.httpchallenge=true"
-      - "--certificatesresolvers.nanoit-cert.acme.httpchallenge.entrypoint=entrypoint-http"
-      - "--certificatesresolvers.nanoit-cert.acme.email=${ACMEEMAIL}"
-      - "--certificatesresolvers.nanoit-cert.acme.storage=/letsencrypt/acme.json"
-
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8578:8578"
-      - "8579:8579"
-
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/home/operation/data/logs/traefik:/opt/traefik"
-      - "/home/operation/data/htpasswd/userfile:/userfile"
-      - "./letsencrypt:/letsencrypt"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "./traefik:/traefik"
-
-    networks:
-      elastic-network:
-        ipv4_address: 172.18.0.60
-
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=elastic-network"
-      - "traefik.http.services.dashboard-traefik.loadbalancer.server.port=8080"
-
-      - "traefik.http.routers.secured-traefik.rule=Host(`${HOSTURL}`)"
-      - "traefik.http.routers.secured-traefik.entrypoints=entrypoint-traefik"
-      - "traefik.http.routers.secured-traefik.service=api@internal"
-      - "traefik.http.routers.secured-traefik.tls=true"
-      - "traefik.http.routers.secured-traefik.tls.certresolver=nanoit-cert"
-      - "traefik.http.routers.secured-traefik.middlewares=basicauth-traefik@docker"
-      - "traefik.http.middlewares.basicauth-traefik.basicauth.usersfile=/userfile"
-
-  es-redis:
-    image: redis:5.0.7
-    container_name: es-redis
-    restart: always
-    sysctls:
-      - net.core.somaxconn=511
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/redis:/data
-      - /home/operation/app/elk-docker-compose/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - /ssl:/usr/local/etc/redis
-    networks:
-      - elastic-network
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    labels:
-      - "traefik.enable=true"
-      - "traefik.tcp.routers.router-redis.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.router-redis.entrypoints=entrypoint-redis"
-      - "traefik.tcp.routers.router-redis.service=frontend-redis@docker"
-      - "traefik.tcp.routers.router-redis.tls=true"
-      - "traefik.tcp.services.frontend-redis.loadbalancer.server.port=6379"
-
-      - "traefik.tcp.routers.router-inside-redis.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.router-inside-redis.entrypoints=entrypoint-inside-redis"
-      - "traefik.tcp.routers.router-inside-redis.service=frontend-inside-redis@docker"
-      - "traefik.tcp.services.frontend-inside-redis.loadbalancer.server.port=6379"
-        
-  es-mt01:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-mt01
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-mt01
-      - node.master=true
-      - node.data=false
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/master01/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/master01:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-mt01.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-mt01.entrypoints=entrypoint-mt01"
-      - "traefik.http.routers.router-mt01.service=frontend-mt01@docker"
-      - "traefik.http.services.frontend-mt01.loadbalancer.server.port=9200"
-
-  es-mt02:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-mt02
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-mt02
-      - node.master=true
-      - node.data=false
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      #- xpack.security.transport.ssl.enabled=true
-      #- xpack.security.enabled=true
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/master02/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/master02:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-mt02.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-mt02.entrypoints=entrypoint-mt02"
-      - "traefik.http.routers.router-mt02.service=frontend-mt02@docker"
-      - "traefik.http.services.frontend-mt02.loadbalancer.server.port=9200"
-
-  es-mt03:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-mt03
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-mt03
-      - node.master=true
-      - node.data=false
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/master03/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/master03:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-mt03.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-mt03.entrypoints=entrypoint-mt03"
-      - "traefik.http.routers.router-mt03.service=frontend-mt03@docker"
-      - "traefik.http.services.frontend-mt03.loadbalancer.server.port=9200"
-
-  es-cdn01:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-cdn01
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-cdn01
-      - node.master=false
-      - node.data=false
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/coordinate01/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/coordinate01:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-cdn01.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-cdn01.entrypoints=entrypoint-cdn01"
-      - "traefik.http.routers.router-cdn01.service=frontend-cdn01@docker"
-      - "traefik.http.services.frontend-cdn01.loadbalancer.server.port=9200"
-
-  es-cdn02:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-cdn02
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-cdn02
-      - node.master=false
-      - node.data=false
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/coordinate02/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/coordinate02:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-cdn02.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-cdn02.entrypoints=entrypoint-cdn02"
-      - "traefik.http.routers.router-cdn02.service=frontend-cdn02@docker"
-      - "traefik.http.services.frontend-cdn02.loadbalancer.server.port=9200"
-
-  es-data01:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-data01
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-data01
-      - node.master=false
-      - node.data=true
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/data01/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/data01:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-data01.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-data01.entrypoints=entrypoint-data01"
-      - "traefik.http.routers.router-data01.service=frontend-data01@docker"
-      - "traefik.http.services.frontend-data01.loadbalancer.server.port=9200"
-
-  es-data02:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-data02
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-data02
-      - node.master=false
-      - node.data=true
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/data02/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/data02:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-data02.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-data02.entrypoints=entrypoint-data02"
-      - "traefik.http.routers.router-data02.service=frontend-data02@docker"
-      - "traefik.http.services.frontend-data02.loadbalancer.server.port=9200"
-
-  es-data03:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    restart: always
-    container_name: es-data03
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-data03
-      - node.master=false
-      - node.data=true
-      - node.ingest=false
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/data03/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/data03:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-data03.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-data03.entrypoints=entrypoint-data03"
-      - "traefik.http.routers.router-data03.service=frontend-data03@docker"
-      - "traefik.http.services.frontend-data03.loadbalancer.server.port=9200"
-
-  es-ing01:
-    build: ./elasticsearch
-    image: custom-elasticsearch
-    container_name: es-ing01
-    restart: always
-    environment:
-      - network.host=0.0.0.0
-      - node.name=es-ing01
-      - node.master=false
-      - node.data=false
-      - node.ingest=true
-      - cluster.remote.connect=false
-      - cluster.name=nanoit-log-cluster
-      - discovery.seed_hosts=es-mt01,es-mt02,es-mt03
-      - cluster.initial_master_nodes=es-mt01,es-mt02,es-mt03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      - xpack.monitoring.enabled=true
-      - xpack.monitoring.collection.enabled=true
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/elasticsearch/ingest01/:/usr/share/elasticsearch/data
-      - /home/operation/data/logs/elasticsearch/ingest01:/usr/share/elasticsearch/logs
-      - ./elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
-    networks:
-      - elastic-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-ing01.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-ing01.entrypoints=entrypoint-ing01"
-      - "traefik.http.routers.router-ing01.service=frontend-ing01@docker"
-      - "traefik.http.services.frontend-ing01.loadbalancer.server.port=9200"
-
-  es-kib:
-    build: ./kibana
-    image: custom-kibana
-    container_name: es-kib
-    restart: always
-    networks:
-      - elastic-network
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-data03']
-    environment:
-      ELASTICSEARCH_HOSTS: '["http://es-mt01:9200","http://es-mt02:9200","http://es-mt03:9200","http://es-cdn01:9200","http://es-cdn02:9200","http://es-data01:9200","http://es-data02:9200","http://es-data03:9200","http://es-ing01:9200"]'
-      NODE_OPTIONS: "--max-old-space-size=2048"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /home/operation/data/logs/elasticsearch/kibana01:/usr/share/kibana/log
-      - /home/operation/data/htpasswd/userfile:/userfile
-      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=elastic-network"
-
-      - "traefik.http.routers.secured-kibana.rule=Host(`${HOSTURL}`)"
-      - "traefik.http.routers.secured-kibana.entrypoints=entrypoint-https"
-      - "traefik.http.routers.secured-kibana.service=dashboard-kibana@docker"
-      - "traefik.http.routers.secured-kibana.tls=true"
-      - "traefik.http.routers.secured-kibana.tls.certresolver=nanoit-cert"
-      - "traefik.http.routers.secured-kibana.middlewares=basicauth@docker"
-      - "traefik.http.middlewares.basicauth.basicauth.usersfile=/userfile"
-      - "traefik.http.services.dashboard-kibana.loadbalancer.server.port=5601"
-
-      - "traefik.http.routers.inside-kibana.rule=Host(`{any:.*}`)"
-      - "traefik.http.routers.inside-kibana.entrypoints=entrypoint-kibana"
-      - "traefik.http.routers.inside-kibana.service=dashboard-inside-kibana@docker"
-      - "traefik.http.services.dashboard-inside-kibana.loadbalancer.server.port=5601"
-   
-  es-idx:
-    build: ./logstash
-    image: custom-logstash
-    container_name: es-idx
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./logstash/config/:/usr/share/logstash/config/
-      - /home/operation/data/elasticsearch/logstash-idx01:/usr/share/logstash/data
-      - /home/operation/data/logs/elasticsearch/logstash01:/usr/share/logstash/logs
-      - ./ssl:/usr/share/logstash/ssl
-    environment:
-      LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
-    networks:
-      - elastic-network
-    restart: always
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-data03', 'es-kib']
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.router-idx.rule=HostRegexp(`{any:.*}`)"
-      - "traefik.http.routers.router-idx.entrypoints=entrypoint-idx"
-      - "traefik.http.routers.router-idx.service=frontend-idx@docker"
-      - "traefik.http.services.frontend-idx.loadbalancer.server.port=9600"
-
-  es-mtb01:
-    build: ./host-metricbeat
-    image: custom-metricbeat-host
-    container_name: es-mtb01
-    command: ["--strict.perms=false"]
-    user: root
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /proc:/hostfs/proc:ro
-      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-      - /:/hostfs:ro
-      - /home/operation/data/logs/elasticsearch/metricbeat01:/usr/share/metricbeat/logs
-      - /home/operation/data/elasticsearch/metricbeat01/:/usr/share/metricbeat/data
-      - /home/operation/app/elk-docker-compose/host-metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
-    network_mode: host
-    restart: always
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-kib', 'es-idx', 'es-data03']
-    cap_add:
-      - sys_ptrace
-      - dac_read_search
-
-  es-mtb02:
-    build: ./container-metricbeat
-    image: custom-metricbeat-container
-    container_name: es-mtb02
-    command: ["--strict.perms=false"]
-    user: root
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /proc:/hostfs/proc:ro
-      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-      - /:/hostfs:ro
-      - /home/operation/data/logs/elasticsearch/metricbeat02:/usr/share/metricbeat/logs
-      - /home/operation/data/elasticsearch/metricbeat02/:/usr/share/metricbeat/data
-      - /home/operation/app/elk-docker-compose/container-metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
-    networks:
-      - elastic-network
-    restart: always
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-kib', 'es-idx', 'es-data03']
-    cap_add:
-      - sys_ptrace
-      - dac_read_search
-
-  es-htb:
-    build: ./heartbeat
-    image: custom-heartbeat
-    container_name: es-htb
-    command: ["--strict.perms=false"]
-    user: root
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
-      - /home/operation/data/elasticsearch/heartbeat01/:/usr/share/heartbeat/data
-      - /home/operation/data/logs/elasticsearch/heartbeat01:/usr/share/heartbeat/logs
-      - ./ssl:/usr/share/heartbeat/ssl
-    networks:
-      - elastic-network
-    restart: always
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-kib', 'es-idx', 'es-data03']
-
-  es-ftb:
-    build: ./filebeat
-    image: custom-filebeats
-    container_name: es-ftb
-    command: ["--strict.perms=false"]
-    user: root
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/log:/usr/share/filebeat/logs/system
-
-      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - /home/operation/data/elasticsearch/filebeat01/:/usr/share/filebeat/data
-
-      - /home/operation/data/logs/elasticsearch:/usr/share/filebeat/logs/elasticsearch
-      - /home/operation/data/logs/traefik:/usr/share/filebeat/logs/traefik
-      - /home/operation/data/redis:/usr/share/filebeat/logs/redis
-      - ./ssl:/usr/share/filebeat/ssl
-    networks:
-      - elastic-network
-    restart: always
-    depends_on: ['es-mt01', 'es-mt02', 'es-mt03', 'es-cdn01', 'es-cdn02', 'es-data01', 'es-data02', 'es-kib', 'es-idx', 'es-data03', 'es-redis']
-
-networks:
-  elastic-network:
-    external: true
+<h1>이하 전문은 모두 레포지토리에..</h1>
+<ul>
+<li><a href="https://github.com/ppzxc/go-grpc-example">github repo</a></li>
+</ul>
+<hr>
+<h1>simple throughput check on real machine using grpc</h1>
+<ul>
+<li>using grpc/grpc-go</li>
+<li><a href="https://github.com/grpc/grpc-go">https://github.com/grpc/grpc-go</a></li>
+</ul>
+<h2>usage</h2>
+<ol>
+<li>git clone <a href="https://github.com/ppzxc/go-grpc-example">https://github.com/ppzxc/go-grpc-example</a></li>
+<li>cd go-grpc-examples</li>
+<li>make all</li>
+<li>echo</li>
+</ol>
+<pre><code>server side
+ - ./echo_server -port 9990
+ 
+client side
+ - ./echo_client -ip 192.168.0.65 -port 9990 -len 512 -conn 1 -worker 1
+</code></pre>
+<ol start="5">
+<li>
+<p>client Stream</p>
+<pre><code class="language-shell">server side
+</code></pre>
+</li>
+<li>./clientStream_server -port 9990</li>
+</ol>
+<p>client side</p>
+<ul>
+<li>
+<p>./clientStream_client -ip 192.168.0.65 -port 9990 -len 512 -conn 1 -worker 1 -count 10000</p>
+<pre><code></code></pre>
+</li>
+<li>
+<p>server Stream</p>
+<pre><code class="language-shell">server side
+</code></pre>
+</li>
+<li>./serverStream_server -port 9990 -count 1000 -len 512</li>
+</ul>
+<p>client side</p>
+<ul>
+<li>
+<p>./serverStream_client -ip 192.168.0.65 -port 9990 -conn 1 -worker 1</p>
+<pre><code></code></pre>
+</li>
+<li>
+<p>bidirectional Stream</p>
+<pre><code class="language-shell">server side
+</code></pre>
+</li>
+<li>./biStream_server -port 9990</li>
+</ul>
+<p>client side</p>
+<ul>
+<li>
+<p>./biStream_client -ip 192.168.0.65 -port 9990 -len 512 -conn 1 -worker 1</p>
+<pre><code>## flags
+</code></pre>
+</li>
+</ul>
+<pre><code class="language-protobuf">message Request {
+  uint64 uid = 1;
+  bytes message = 2;
+  int32 len = 3;
+  int32 connNumber = 4;
+  int32 workerNumber = 5;
+}
+</code></pre>
+<ul>
+<li>ip</li>
+<li>port</li>
+<li>len => protobuf bytes message size</li>
+<li>conn => connection count</li>
+<li>worker => connection per worker count</li>
+</ul>
+<h2>grpc/grpc-go</h2>
+<pre><code>D:\go\go-grpc-examples-benchmark\proto\unary>protoc --version
+libprotoc 3.14.0
+D:\go\go-grpc-examples-benchmark\proto\unary>protoc --go_out=plugins=grpc:. *.proto
 </code></pre>
 <h2>reference</h2>
 <ul>
