@@ -1,0 +1,250 @@
+---
+type: post
+date: 2017-05-13 02:04:15
+title: 자바병렬프로그래밍-Chapter05-효율적이고-확장성-있는-결과-캐시-구현
+draft: false
+author: ppzxc
+tags:
+  - 자바병렬프로그래밍
+---
+
+# 5.6 효율적이고 확장성 있는 결과 캐시 구현
+
+거의 대부분의 서버 애플리케이션은 모두 어떤 형태이건 캐시를 사용한다. 이전에 처리했던 작업의 결과를 재사용할 수 있다면, 메모리를 조금 더 사용하기는 하지만 대기시간을 크게 줄이면서 처리 용량을 늘릴 수 있다.
+
+- 했던 일을 다시 반복하던 여러 사례에서 볼 수 있듯, 캐시 기능은 굉장히 만들기 쉬워 보인다.
+- 하지만 캐시를 대충 만들면 단일 스레드로 처리할 때 성능이 높아질 수는 있겠지만, 나중에는 성능의 병목 현상을 확장성의 병목으로 바꾸는 결과를 얻을 수 있다.
+
+```java
+// 계산 가능한 인터페이스 A = arg, V = return
+interface Computable <A, V> {
+    V compute(A arg) throws InterruptedException;
+}
+
+// 스레드 안전성을 확보한 메모이제이션 = 캐시
+public class Memoizer1 <A, V> implements Computable<A, V> {
+    @GuardedBy("this") private final Map<A, V> cache = new HashMap<A, V>();
+    private final Computable<A, V> c;
+
+    public Memoizer1(Computable<A, V> c) {
+        this.c = c;
+    }
+
+    public synchronized V compute(A arg) throws InterruptedException {
+        V result = cache.get(arg);
+        if (result == null) {
+            result = c.compute(arg);
+            cache.put(arg, result);
+        }
+        return result;
+    }
+}
+
+class ExpensiveFunction implements Computable<String, BigInteger> {
+    public BigInteger compute(String arg) {
+        // after deep thought...
+        return new BigInteger(arg);
+    }
+}
+```
+
+- Computable<A, V> 인터페이스는 A라는 입력 값과 V라는 결과 값에 대한 메소드를 정의하고 있다.
+- Computable 인터페이스를 구현한 ExpensiveFunction 클래스는 결과를 뽑아 내는 데 상당한 시간이 걸린다.
+- 이런 상황에서 Computable에 한겹을 덧씌워 이전 결과를 기억하는 캐시 기능을 추가해 보자.
+- `메모이제이션 memoization`
+
+- HashMap은 스레드에 안전하지 않기 때문에 Memoizer1은 두 개 이상의 스레드가 HashMap에 동시에 접근하지 못하도록 Compute 메소드 전체를 동기화시켜 버리는 가장 단순한 정책을 취했다.
+- 이 방법은 스레드 안전성을 쉽게 확보할 수 있지만 `확장성` 측면에서 문제가 생긴다.
+- 어떤 스레드가 compute를 실행하는 연산 시간이 오래 기다린다면 compute를 실행하려 기다리는 스레드의 대기시간이 길어진다.
+
+```java
+public class Memoizer2 <A, V> implements Computable<A, V> {
+    private final Map<A, V> cache = new ConcurrentHashMap<A, V>();
+    private final Computable<A, V> c;
+
+    public Memoizer2(Computable<A, V> c) {
+        this.c = c;
+    }
+
+    public V compute(A arg) throws InterruptedException {
+        V result = cache.get(arg);
+        if (result == null) {
+            result = c.compute(arg);
+            cache.put(arg, result);
+        }
+        return result;
+    }
+}
+```
+
+- Memoizer2는 HashMap 대신 ConcurrentHashMap을 사용하는데, Memoizer1에 비해 병렬 프로그래밍의 입장에서 엄청나게 개선됐다.
+- ConcurrentHashMap은 이미 스레드 안전성을 확보하고 있기 때문에 Map을 사용할 때 별다른 동기화 방법을 사용하지 않아도 된다.
+- 따라서 Memoizer1에서 compute 메소드 전체를 동기화 하느라 생겼던 성능상의 큰 문제점을 이거에 해소했다.
+- Memoizer2는 Memoizer1에 비해 훨씬 개선된 병렬 프로그램의 모양새를 갖추고 있다.
+- 여러개의 스레드가 동시 다발적으로 Memoizer2에 접근할 수 있다.
+- `하지만 캐시라는 기능으로 볼 때 아직도 약간 미흡한 부분이 있다.`
+- `두 개 이상의 스레드가 동시에 같은 값을 넘기면서 compute 메소드를 호출해 같은 결과를 받아갈 가능성이 있기 때문이다.`
+- `메모이제이션 측면에서 보면 이런 상황은 단순히 효율성이 약간 떨어지는 것뿐이다.`
+- `캐시는 같은 결과를 두번 연산하는 일이 없게 하려는 목적이기 때문에 캐시 측면에서는 비효율적이다.`
+- `이런 측면에서 똑같은 결과를 두 개 이상 만들어 낼 수 있다는 것은 안전성 문제로 이어질 수 있다.`
+
+```
+Memoizer2의 문제는 특정 스레드가 compute 메소드에서 연산을 시작했을때 다른 스레드에서 현재 어떤 연산이 이루어지고 있는지 모르기 때문에 동일 연산을 시작할 수 있다.
+1. 특정 스레드가 f(27) 값을 알고 싶을 때, 스레드 X가 현재 f(27) 연산을 수행하고 있다는 것을 알아야 한다.
+2. f(27)을 다른 스레드가 계산하고 있을 때 f(27) 값을 얻을 수 있는 효과적인 방법을 찾아야 한다.
+3. 스레드 X가 작업을 끝낼때 까지 대기하고 있다가 작업이 끝나면 f(27)의 결과가 무엇인지 물어보는 것이다.
+
+이미 이러한 동작을 수행하는 클래스가 있다.
+1. FutureTask는 이미 끝났거나 끝날 예정인 연산 작업을 표현해 작업한다.
+2. FutureTask.get 메소드는 연산 작업이 끝나는 즉시 연산 결과를 리턴한다.
+3. 연산 도중이라면 작업이 끝날때까지 기다렸다가 그 결과를 알려준다.
+```
+
+```java
+public class Memoizer3 <A, V> implements Computable<A, V> {
+    private final Map<A, Future<V>> cache = new ConcurrentHashMap<A, Future<V>>();
+    private final Computable<A, V> c;
+
+    public Memoizer3(Computable<A, V> c) {
+        this.c = c;
+    }
+
+    public V compute(final A arg) throws InterruptedException {
+        Future<V> f = cache.get(arg);
+        if (f == null) {
+            Callable<V> eval = new Callable<V>() {
+                public V call() throws InterruptedException {
+                    return c.compute(arg);
+                }
+            };
+            FutureTask<V> ft = new FutureTask<V>(eval);
+            f = ft;
+            cache.put(arg, ft);
+            ft.run(); // call to c.compute happens here
+        }
+        try {
+            return f.get();
+        } catch (ExecutionException e) {
+            throw LaunderThrowable.launderThrowable(e.getCause());
+        }
+    }
+}
+```
+
+- Memoizer3는 결과를 저장하는 Map을 기존 ConcurrentHashMap<A, V> 대신 ConcurrentHashMap<A, Future<V>>라고 정의한다.
+- Memoizer3는 먼저 원하는 값에 대한 연산 작업이 시작됐는지 확인해 본다. (Memoizer2는 연산이 끝난 결과를 검색한다.)
+- 시작된 작업이 없으면 FutureTask를 하나 만들어 Map에 등록하고 연산을 시작한다.
+- 시작된 작업이 있었으면 결과를 대기한다.
+
+- `[Memoizer3는 캐시라는 측면에서 이제 거의 완벽한 모습을 갖췄다. 상당한 수준의 동시 사용성도 갖고 있고(ConcurrentHashMap이 제공하는 병렬성을 100% 활용한다.) 결과를 이미 알고 있다면 계산 결과 과정을 거치지 않고 결과를 즉시 가져갈 수 있고, 특정 스레드가 연산 작업을 진행하고 있다면 뒤이어 오는 스레드는 진행 중인 연산 작업의 결과를 기다리도록 되어 있다.]`
+- 하지만 아직 미흡한 점이 있는데, 여전히 여러 스레드가 같은 값에 대한 연산을 시작할 수 있다.
+- compute 메소드의 if문을 거의 동시에 실행한다면 모두 계산된 값이 없다고 판단하고 새로운 연산을 시작할 수 있다.
+
+- Memoizer3가 갖고 있는 허점은 Map에 결과를 추가할 때 단일 연산이 아닌 복합 연산을 사용하기 때문이고, 락을 사용해서는 단일 연산으로 구성할 수가 없다.
+
+```java
+public class Memoizer <A, V> implements Computable<A, V> {
+    private final ConcurrentMap<A, Future<V>> cache = new ConcurrentHashMap<A, Future<V>>();
+    private final Computable<A, V> c;
+
+    public Memoizer(Computable<A, V> c) {
+        this.c = c;
+    }
+
+    public V compute(final A arg) throws InterruptedException {
+        while (true) {
+            Future<V> f = cache.get(arg);
+            if (f == null) {
+                Callable<V> eval = new Callable<V>() {
+                    public V call() throws InterruptedException {
+                        return c.compute(arg);
+                    }
+                };
+                FutureTask<V> ft = new FutureTask<V>(eval);
+                f = cache.putIfAbsent(arg, ft);
+                if (f == null) {
+                    f = ft;
+                    ft.run();
+                }
+            }
+            try {
+                return f.get();
+            } catch (CancellationException e) {
+                cache.remove(arg, f);
+            } catch (ExecutionException e) {
+                throw LaunderThrowable.launderThrowable(e.getCause());
+            }
+        }
+    }
+}
+```
+
+- Memoizer는 ConcurrentMap 클래스의 putIfAbsent 라는 단일 연산 메소드를 사용해 결과를 저장한다. 이것으로 Memoizer3에서 발생하던 허점은 완벽하게 보완했다.
+- 실제 결과 값 대신 Future 객체를 캐시하는 방법은 이른바 `캐시 공해`를 유발할 수 있다.
+- 특정 시점에 시도했던 연산이 취소되거나 오류가 발상했었다면 Future 객체 역시 취소되거나 오류가 발생했던 상황을 알려줄 것이다.
+- `이러한 문제 해결을 위해 Memoizer는 연산이 취소되거나 RuntimeException이 발생한 경우에도 Future 객체를 제거한다.`
+- 거의 모든 문제가 해결 됐지만 Memoizer는 아직 캐시된 내용이 만료되는 기능은 갖고 있지 않다.
+  - 이 부분은 FutureTask를 상속받아 만료된 결과인지 여부를 알 수 있는 새로운 클래스를 만들어 사용한다.
+  - 또한 결과 캐시를 주기적으로 돌아다니면서 만료된 결과 항목이 있는지 조사해 제거하는 기능을 구현하는 것으로 간단하게 해결할 수 있다.
+  - 만료 기능과 유사하게 캐시에 저장되는 항목의 개수나 크기 등을 제한해 너무 많은 메모리를 소모하지 않도록 제한하는 기능도 아직 담고 있지 않다.
+
+`이러한 병렬 캐시 기능을 이용해 앞전 예제인 인수분해 서블릿에 캐시 기능을 연결할 수 있다.`
+
+```java
+@ThreadSafe
+public class Factorizer extends GenericServlet implements Servlet {
+    private final Computable<BigInteger, BigInteger[]> c = new Computable<BigInteger, BigInteger[]>() {
+                public BigInteger[] compute(BigInteger arg) {
+                    return factor(arg);
+                }
+            };
+    private final Computable<BigInteger, BigInteger[]> cache = new Memoizer<BigInteger, BigInteger[]>(c);
+
+    public void service(ServletRequest req, ServletResponse resp) {
+        try {
+            BigInteger i = extractFromRequest(req);
+            encodeIntoResponse(resp, cache.compute(i));
+        } catch (InterruptedException e) {
+            encodeError(resp, "factorization interrupted");
+        }
+    }
+
+    void encodeIntoResponse(ServletResponse resp, BigInteger[] factors) {
+    }
+
+    void encodeError(ServletResponse resp, String errorString) {
+    }
+
+    BigInteger extractFromRequest(ServletRequest req) {
+        return new BigInteger("7");
+    }
+
+    BigInteger[] factor(BigInteger i) {
+        // Doesn't really factor
+        return new BigInteger[]{i};
+    }
+}
+```
+
+# 1부 요약
+
+## 아래 내용만 봐도 1부의 내용을 요악할 수 있다.
+
+```
+1. 상태가 바뀔 수 있다.  병렬성과 관련된 모든 문제점은 변경 가능한 변수에 접근하려는 시도를 적절하게 조율하는 것으로 해결할 수 있다. 변경 가능성이 낮으면 낮을수록 스레드 안전성을 확보하기가 쉽다.
+2. 변경 가능한 값이 아닌 변수는 모두 final로 선언하라.
+3. 불변 객체는 항상 그 자체로 스레드 안전하다.
+  불변 객체는 병렬 프로그램을 엄청나게 간편하게 작성할 수 있도록 해준다. 불변 객체는 간결하면서 안전하고, 락이나 방어적 복사 과정을 거치지 않고도 얼마든지 공유해 사용할 수 있다.
+4. 캡슐화하면 복잡도를 손쉽게 제어할 수 있다.
+  모든 값을 전역 변수에 넣어 두더라도 프로그램을 스레드 안전하게 작성할 수는 있다. 하지만 도대체 무엇 때문에 그런 짓을 하는가? 데이터를 객체 내부에 캡슐화하면 값이 변경되는 자유도를 쉽게 제어할 수 있다. 객체 내부에서 동기화하는 기법을 캡슐화하면 동기화 정책을 손쉽게 적용할 수 있다.
+5. 변경 가능한 객체는 항상 락으로 막아줘야 한다.
+6. 불변 조건 내부에 들어가는 모든 변수는 같은 락으로 막아줘야 한다.
+7. 불변 조건 내부에 들어가는 모든 변수는 같은 락으로 막아줘야 한다.
+8. 복합 연산을 처리하는 동안에는 항상 락을 보호하고 있어야 한다.
+9. 여러 스레드에서 변경 가능한 변수의 값을 사용하도록 되어 있으면서 적절한 동기화 기법이 적용되지 않은 프로그램은 올바른 결과를 내놓지 못한다.
+10. 동기화할 필요가 없는 부분에 대해서는 일부러 머리를 써서 고민할 필요가 없다. (동기화 할 필요가 없다고 이래저래 추측한 결론에 의존해서는 안된다.)
+11. 설계 단계에서부터 스레드 안전성을 염두에 두고 있어야 한다. 아니면 최소한 결과물로 작성된 클래스가 스레드에 안전하지 않다고 반드시 문서로 남겨야 한다.
+12. 프로그램 내부 동기화 정책에 대한 문서를 남겨야 한다.
+
+출처 :브라이언 괴츠, 더그 리, 팀 피얼스, 조셉 보우비어, 데이빗 홈즈, 조슈아 블로쉬 공저, 『 멀티코어를 100% 활용하는 자바 병렬 프로그래밍』, 에이콘(2008.7.30), 5장 인용.
+```

@@ -1,0 +1,53 @@
+---
+type: post
+date: 2017-04-10 00:00:00
+title: 규칙3 private 생성자나 enum 자료형은 싱글턴 패턴을 따르도록 설계하라
+draft: false
+author: ppzxc
+tags:
+  - 이펙티브자바
+---
+
+### 규칙3 private 생성자나 enum 자료형은 싱글턴 패턴을 따르도록 설계하라
+
+### 기존의 싱글턴 패턴 생성 방법 2가지
+
+```
+// public final 필드를 이용한 싱글턴
+Public class Elvis {
+	public static final Elvis INSTANCE = new Elvis();
+	private Elvis()	{ … }
+
+	public void leaveTheBuilding() { … }
+}
+
+// 정적 팩터리를 이용한 싱글턴
+Public class Elvis {
+	private static final Elvis INSTANCE = new Elvis();
+	private Elvis() { … }
+	public static Elvis getInstance() { return INSTANCE; }
+
+	public void leaveTheBuilding() { … }
+}
+
+```
+
+이 두가지 방법은 AccessibleObject, setAccessible 메서드의 도움을 받아 권한을 획득한 클라이언트는 리플렉션 기능을 통해 private 생성자를 호출할 수 있따.
+
+```
+// enum 싱글턴 - 더 낫다.
+Public enum Elvis {
+	INSTANCE;
+
+	public void leaveTheBuilding() { … }
+}
+
+```
+
+- 좀더 간결하다.
+- 직렬화가 자동으로 처리된다.
+- 직렬화가 아무리 복잡하게 이루어져도 여러 객체가 생길 일이 없으며, 리플랙션을 통한 공격에도 안전하다.
+
+널리 사용되는 접근법은 아니지만, 원소가 하나뿐인 enum 자료형이야 말ㄹ 싱글턴을 구현하는 가장 좋은 방법이다.
+
+출처 : 조슈아 블로크, 『 Effective Java 2/E』, 이병준 옮김, 인사이트(2014.9.1), 규칙3 인용.

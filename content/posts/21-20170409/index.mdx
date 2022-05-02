@@ -1,0 +1,144 @@
+---
+type: post
+date: 2017-04-09 00:00:00
+title: 03. 자바 I/O ( 오버라이딩에 대한 이해 )
+draft: false
+author: ppzxc
+tags:
+  - JavaIO NIO
+  - Override
+---
+
+### 오버라이딩에 대한 확실한 이해
+
+자바의 상속과 오버라이딩에 대한 확실한 이해가 없으면 안된다!내가 알고 있는 오버라이딩과 오버로딩의 개념이 헷갈린다.
+
+- 오버라이딩
+  올라타다. 라는 단어로 외웠다. 즉, 부모의 메소드를 자식 클래스에서 메소드를 다시 재정의 할 수 있는 기능이다.
+- 오버로딩
+  로드, 로딩, 즉, 같은 이름의 함수를 정의하고 인자 값에 변화를 줘서 여러 메소드를 정의 할 수 있는 기능이다.
+
+하지만, 이 예제를 보자 개념이 흔들리기 시작했다.
+
+```
+class Parent
+{
+    int i = 7;
+    public int get()
+    {
+        return i;
+    }
+}
+
+class Child extends Parent
+{
+    int i = 5;
+    public int get()
+    {
+        return i;
+    }
+}
+
+public class ChildTest
+{
+    public static void print(Parent p)
+    {
+        System.out.println(p.i);
+        System.out.println(p.get());
+    }
+
+    public static void main(String[] args)
+    {
+        Parent p = new Parent();
+        System.out.println("------------1-----------");
+        System.out.println(p.i);
+        System.out.println(p.get());
+
+        Child c = new Child();
+        System.out.println("------------2------------");
+        System.out.println(c.i);
+        System.out.println(c.get());
+
+        Parent p2 = new Child();
+        System.out.println("------------3------------");
+        System.out.println(p2.i);
+        System.out.println(p2.get());
+
+        System.out.println("------------4------------");
+        print(c);
+        print(p2);
+    }
+}
+
+```
+
+1번과 2번의 결과는 예측할 수 있었다. 하지만, 3번, 4번의 결과는 헷갈려서 틀려버렸다.
+
+위 예제의 출력은
+
+1. 7 7
+2. 5 5
+3. 7 5
+4. 7 5
+   이다.
+
+책에서는 오버라이드(Override) 라는 용어의 개념부터 바로잡고 있다.
+"부모가 가지고 있는 것을 자식이 대체 한다." 라는 나도 알고 있던 개념을 잘못된 해석이라고 정의한다.
+
+즉, 똑같은 크기의 트럼프 카드 두장을 겹쳐놓았다고 하자. 아래의 카드는 보이지 않고 윗장의 카드만 보일 것 이다.
+하지만 아래의 카드가 사라진 것일까? 없어진 것일까? 아니다. 아래의 카드는 보이지만 않을뿐 엄연히 존재하는 카드이다.
+이것이 오버라이드 즉, 직역하자면 "올라타다"라는 개념인 것이다.
+
+```
+Parent p2 = Child();
+System.out.println("------------3------------");
+System.out.println(p2.i);
+System.out.println(p2.get());
+
+```
+
+위 예제에서 Child() 객체가 메모리에 올라가게 되면 Child에 있는 필드 i와 Parent에 있는 i 모두가 메모리에 올라가게 된다.
+이 경우 객체를 가리키는 참조 변수가 Parent라면 필드는 Parent의 것을 사용하게 된다.
+
+하지만, 메소드가 오버라이딩되는 경우, 부모의 메소드의 코드는 사라지고 자식 메소드의 코드만 남게 된다.
+
+그 결과, Parent 형식의 참조 변수가 Child 객체를 가리킬 때, 메소드는 자식에서 선언된 메소드가 사용되기 때문에 Child의 i 값이 출력되는 것이다.
+
+- 부모는 자식을 가리킬 수 있다. 조상은 자손을 가리킬 수 있다.
+- 만약, 자식이나 자손이 메소드를 오버라이딩하고 있으면 메소드의 기능은 자식이나 자손이 구현한 것을 따른다.
+
+즉, 메소드가 오버라이딩될 경우 무조건 자식의 메소드 기능을 따른다.
+필드는 객체를 가리키는 참조 변수에 따른다.
+
+그렇다면 아래의 출력 결과는 어떻게 될까?
+
+```
+public static void print(Parent p)
+{
+    System.out.println(p.i);
+    System.out.println(p.get());
+}
+-----------------------------------------
+System.out.println("------------4------------");
+print(c);
+print(p2);
+
+```
+
+먼저 메소드의 인자를 잘 보아야 한다.
+
+```
+public static void print(Parent p)
+
+```
+
+나 같은 경우에도 책을 읽으며 "메소드 print는 인자로 parent를 받는다" 라고 해석했다. 이는 반은 맞고 반은 틀리다.
+
+"메소드 print는 인자로 parent와 parent의 자손을 받아들인다"라고 보아야한다.
+
+이 책의 역자가 말하듯, 어떠한 기술이나 언어, 또 lib를 공부할떄 그에 수반되는 기본 지식을 정확하게 알아야 한다는 말처럼
+기본이 튼튼해야 그 위에 쌓이는 지식 또한 뿌리 깊은 나무가 될것 같다.
+
+[소스코드](https://github.com/JungHa-Cho/StandardOfJava/blob/master/StandardOfJava/src/com/tistory/devshock/override/OverrideChildTest.java)
+
+출처 : 김성박 송지훈 공저, 『 자바 IO & NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 3장 인용.

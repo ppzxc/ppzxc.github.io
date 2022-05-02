@@ -1,0 +1,28 @@
+---
+type: post
+date: 2017-04-05 00:00:00
+title: engine
+draft: false
+author: ppzxc
+tags:
+  - db
+---
+
+### MyISAM ( Indexed Sequential Access Method )
+
+- 결론부터, 트랜잭션 처리가 불필요하며 Select 속도가 빠르므로 조회작업 특화 엔진
+- 비 트랜잭션 세이프(Non-Transaction-Safe)
+- 테이블 단위 Lock (Table Level Locking) 쓰기(INSERT, UPDATE) 작업 속도가 느림, Select 속도가 빠름
+- Table 명세에 Row Count를 가지고 있음, `Select count(*) from TABLE` 빠름
+- InnoDB에 비해 단순, 데이터 모델 디자인 또한 단순, 따라서 전체적으로 InnoDB보다 빠름
+- Full-text 인덱싱 가능, 검색하고자 하는 내용에 대한 복합 검색 가능
+- But, 무결성 보장 안됨, 트랜잭션 보장 없음 즉, delete update시 복구 불가
+- Table Leve Locking은 한 테이블에 많은 접근이 이루어 질수록 속도가 느려짐
+
+### InnoDB()
+
+- 결론부터, 데이터 입력과 수정이 빈번하고 다수, 동시접속, 높은 부하시 퍼포먼스가 좋고 대용량 데이터 처리가 필요할때
+- InnoDB는 인덱스 관리에 테이블 스페이스(Table Space) 사용
+- Commit, Rollback, 장애 복구 등 트랜잭션 지원
+- Full Text Index 미지원, 속도 MyISAM에 비해 느림
+- 행 단위 Lock (Row Level Locking) - 변경 ( Insert, Update, Delete )에 대한 속도가 빠름

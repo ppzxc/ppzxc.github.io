@@ -1,0 +1,225 @@
+---
+type: post
+date: 2017-04-10 00:00:00
+title: 05. 문자 스트림 문자 단위 IO 클래스
+draft: false
+author: ppzxc
+tags:
+  - JavaIO NIO
+---
+
+### 05. 문자 스트림 : 문자 단위 IO 클래스
+
+문자 단위 IO클래스는 자바가 처음 등장했을떄에는 포함되지 않았다. 이후, 2바이트 문화권에서 2바이트 문자를 입출력하는 클래스를 요청하게 되었고 나중에 추가하게 된 것이다.
+
+보통 바이너리 파일을 입출력할 때에는 바이트 단위의 IO 클래스를 사용하게 되고, 문자 단위의 IO 클래스를 사용하게 될 때에는 문자 스트림을 이용하게 된다.
+
+바이트 단위 IO 클래스와 문자 단위 IO 클래스 모두 사용법은 비슷하다. 다른 점이 있다면 바이트 단위로 입출력하느냐, 문자 단위로 입출력하느냐의 차이가 있을 뿐이다. 그리고 바이트 단위 IO 클래스와 문자 단위 IO 클래스는 완전히 따로 사용하지 않는다는 것이 중요하다.
+
+문자 단위 IO 클래스의 `InputStreamReader`와 `OutputStreamWrite` 클래스가 있는데 이 두가지 클래스는 바이트 단위 IO 클래스와 문자 단위 IO 클래스 간에 다리 역할을 함으로써 서로 협력해서 사용할 수 있게 해준다.
+
+문자 단위 IO 클래스도 바이트 단위 IO 클래스와 마찬가지로 네트워크 프로그래밍, JDBC 프로그래밍, XML 프로그래밍에서 사용된다. 그렇지만 JDBC 프로그래밍의 경우에는 대용량 텍스트를 데이트베이스에 저장하고 읽어오고자 할 때, 문자 단위 IO 클래스를 사용한다.
+
+### 01. 문자 단위 IO 클래스
+
+![image](http://cfile21.uf.tistory.com/image/255D444E58BFF2D516D83F)
+
+문자 단위 IO 클래스의 사용법은 바이트 단위 IO 클래스와 다르지 않다. 다만, 바이트 단위로 입출력을 하는 것이 아니라, 문자 단위로 입출력을 한다는 것이다.
+
+상속도를 보면 알 수 있는 것 처럼 Object를 상속 받는 Reader와 Writer는 문자 단위 IO의 최상위 클래스 이기 때문에 문자 단위 IO를 이해하기 위해서는 이 Reader와 Writer를 이해하는 것이 중요하다.
+
+### 02. Reader와 Writer
+
+`Reader`와 `Writer`는 문자 단위 입출력 스트림에서 가장 기본이 되는 클래스로 모두 추상 클래스이다. 즉, `Reader`와 `Writer`는 객체화가 될수 없다.
+`Reader`와 `Writer`는 `InputStream`과 `OutputStream`과 사용법이 거의 비슷하다. 다만, 바이트 단위 입출력 스트림은 바이트나 바이트의 배열을 읽고 쓰는 것에 비해서, 문자 단위 입출력 스트림은 문자나 문자 배열을 읽고 쓴다.
+
+`Reader`와 `Writer` 클래스는 추상 클래스로 객체화할 수 없다. 하지만 앞서 배웠던 것처럼 `Reader`와 `Writer` 클래스는 부모 클래스로서 중요한 의미가 있다.
+`Reader`와 `Writer`는 객체화 될 수 없지만 부모클래스로서 다음과 같이 사용할 수 있다.
+
+```
+Reader r = new FileReader("a.txt");
+
+```
+
+### 03. InputStreamReader와 OutputStreamWriter
+
+InputStreamReader는 Reader를 OutputStreamWriter는 Writer를 상속받는다. 즉 문자 단위 입출력에 필요한 클래스다. 하지만 두 클래스는 각각 InputStream과 OutputStream을 생성자에서 받아들인다.
+
+java.io 패키지의 IO 클래스에서 중요한 것은 생성자이다. 또한 생성자가 중요한 이유는 생성자에 전달한 인자가 무엇이냐에 따라서 읽어 들여야 할 대상과 써야 할 대상이 달라진다. 즉, InputStreamReader는 바이트 단위로 읽어 들이는 InputStream을 통해 데이터를 읽어 들여 문자 단위로 읽어 들이는 방식으로 변형한다.
+또 OutputStreamWriter는 바이트 단위로 쓰는 OutputStream을 이용해서 문자 단위로 쓰는 것을 바이트 단위로 쓰도록 변형한다는 것을 의미한다.
+
+InputStreamReader의 동작 과정
+
+`읽어야 할 대상 -> InputStream -> InputStreamReader -> 메소드`
+
+OutputStreamWriter의 동작 과정
+
+`써야 할 대상 <- OutputStream <- OutputStreamWriter <- 메소드`
+
+### 1. 문자 단위로 파일 내용을 읽어 들여 화면에 출력하기
+
+```
+import java.io.*;
+
+public class StreamReaderTest
+{
+    public static void main(String[] args)
+    {
+        if(args.length != 1)
+        {
+            System.out.println("Use : Java StreamReaderTest FileName");
+            System.exit(0);
+        }
+
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        OutputStreamWriter osw = null;
+
+        try {
+            fis = new FileInputStream(args[0]);
+            isr = new InputStreamReader(fis);
+            osw = new OutputStreamWriter(System.out);
+            char[] buffer = new char[512];
+            int readCount = 0;
+            while ( ( readCount = isr.read(buffer) ) != -1 )
+            {
+                osw.writer(buffer, 0, readCount);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }finally{
+            try {
+                fis.close();
+                isr.close();
+                osw.close();
+            } catch (Exception e) {
+
+            }
+        }
+    }
+}
+
+```
+
+파일의 내용을 읽으려고 FileInputStream을 사용하고 화면에 출력하려고 System.out을 사용할 것이다. 그렇지만 각깍 클래스들은 바이트 단위 IO 클래스이다. 따라서 문자 단위로입출력을 하려면 InputStreamReader와 OutputStreamWriter를 이용해서 문자 단위 입출력으로 변환해야 한다.
+
+```
+FileInputStream fis = null;
+InputStreamReader isr = null;
+OutputStreamWriter osw = null;
+
+```
+
+FileInputStream을 통해서 읽어 들이는 InputStreamReader를 생성하고 System.out을 통해서 출력하는 OutputStreamWriter를 생성한다.
+
+```
+char[] buffer = new char[512];
+int readCount = 0;
+while ( ( readCount = isr.read(buffer) ) != -1 )
+{
+    osw.writer(buffer, 0, readCount);
+}
+
+```
+
+InputStreamReader의 Read() 메소드를 이용해 문자 배열 형태로 읽은 후 OutputStreamWriter에 있는 write() 메소드를 이용해서 문자 배열 값을 출력한다. InputStreamReader는 내부적으로 FileInputStream을 이용해서 읽어들이고 OutputStreamWriter는 내부적으로 System.out을 사용해서 출력한다.
+
+### 04. FileReader와 FileWriter
+
+FileReader와 FileWriter는 각각 InputStreamReader와 OutputStreamWriter와 기능이나 사용법이 유사하다. 다른 점이라면 문자 단위 출력과 바이트 단위 출력이 다르다는 것이다.
+
+```
+FileReader fr = null;
+FileWriter fw = null;
+try{
+    fr = new FileReader(args[0]);
+    fw = new FileWriter(args[1]);
+}
+
+```
+
+args[0]으로 지정한 파일로부터 읽어 들이는 FileReader 객체와 args[1]로 지정한 파일에 쓰는 FileWriter 객체를 생성한다.
+
+```
+char[] buffer = new char[512];
+int readCount = 0;
+while( ( readCount = fr.read() ) != -1 )
+{
+    fw.write(buffer, 0, readCount);
+}
+
+```
+
+FileReader에 있는 read 메소드를 이용해서 배열 buffer에 파일로부터 문자열을 읽어들이고, FileWirter에 있는 write 메소드를 이용해서 buffer에 저장된 문자열을 파일에 출력한다.
+
+### 05. BufferedReader와 BufferedWriter
+
+`BufferedReader`와 `BufferedWriter`는 이름 그대로 Buffer에 있는 IO 클래스다. Buffer란 다른 말로 메모리를 의미하는데, 메모리가 있기 때문에 입출력 시에 병목 현상을 줄일 수 있다. 빠른 속도로 읽어들이거나, 빠른속도로 쓰고자 할때 읽어 들여야 할 대상과 써야 할 대상 간의 속도차이 때문에 병목현상이 일어날 수 있기 때문이다. 따라서 중간에 버퍼를 둠으로써 읽기와 쓰기 시 성능이 향상될 수 있다.
+
+또한 BufferedReader의 경우에는 한 줄씩 읽어 들이는 readLine이라는 메소드가 있기 때문에 한줄씩 읽어 들이기에도 유리하다. 다만 주의해야 할 점이 있는데 BufferedWriter의 경우 버퍼가 있기 때문에 반드시 flush() 메소드를 이용하거나 close() 메소드를 호출해줘야 한다. 그렇지 않고 프로그램을 종료하게 되면 버퍼에 내용을 완전하게 쓸 수 없게 된다.
+
+특히 네트워크 프로그래밍의 경우에는 write() 메소드를 호출한 후에는 반드시 flush() 메소드를 호출해줘야 한다.
+
+앞서 작성한 04. FileReader와 FileWriter는 버퍼가 없기 때문에 병목현상이 발생할 수 있다. 짧은 파일일 경우에는 그다지 영향을 받지 않지만, 큰 파일을 복사할 때에는 속도가 느릴 수 있다. 이를 해결하려면 BufferedReader와 BufferedWriter를 이용해서 IO 클래스에게 버퍼를 추가하면 된다.
+
+```
+import java.io.*;
+
+public class BufferedFileCopy
+{
+    public static void main(String[] args)
+    {
+        if(args.length != 2)
+        {
+            System.out.println("Use : Java FileCopy FileName1, FileName2");
+            System.exit(0);
+        }
+
+        FileReader fr = null;
+        BufferedReader br = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            fr = new FileReader(args[0]);
+            br = new BufferedReader(fr);
+            fw = new FileWirter(args[1]);
+            bw = new BufferedWriter(fw);
+
+            char[] buffer = new char[512];
+            int readCount = 0;
+            while( ( readCount = br.read(buffer) ) != -1 )
+            {
+                bw.write(buffer, 0, readCount);
+            }
+            System.out.println("File Copy Complete...");
+        } catch (Exception e) {
+            System.out.println(e);
+        }finally{
+            try {
+                br.close();
+                bw.close();
+            } catch (Exception e) { }
+        }
+    }
+}
+
+```
+
+```
+fr = new FileReader(args[0]);
+br = new BufferedReader(fr);
+fw = new FileWirter(args[1]);
+bw = new BufferedWriter(fw);
+
+```
+
+FileReader 객체를 BufferedReader의 인자로 지정해서 BufferedReader 객체를 생성하고, FileWriter 객체를 BufferedWriter의 인자로 지정해서 BufferedWriter 객체를 생성했다. 이는 FileReader를 BufferedReader로 감싸므로 FileReader에게 Buffer를 가진 것 같은 효과를 준 것이다.
+
+### 06. PrintWriter
+
+### 07. CharArrayReader와 CharArrayWriter
+
+### 08. StringReader와 StringWriter
+
+출처 : 김성박 송지훈 공저, 『 자바 IO & NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 5장 인용.

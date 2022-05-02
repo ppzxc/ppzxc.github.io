@@ -1,0 +1,16 @@
+---
+type: post
+date: 2017-04-04 00:00:00
+title: Connection Pool
+draft: false
+author: ppzxc
+tags: 
+  - DataBase
+  - 일반
+  - 기초
+---
+
+- Data Base Connection Pool이란, Java Programming에서 DB로 Connection을 맺을때 다수의 사용자들이 Connection을 요구 한다면 최악의 경우 Server가 다운되는 일이 발생할 수도 있다. 이를 해결하기 위해 Connection Pool을 이용한다.
+- Connection Pool은 Database와의 연결을 효율적으로 관리하는 역할을 한다.
+- 사전에 일정량의 Connection 객체를 만들어 공유된 장소에 모아둠으로써 객체 생성에 걸리는 시간을 아끼고 속도 향상을 도모한다. 사용이 끝난 Connection 객체는 다시 공유된 장소에 넣어둔다.
+- DB에 연결하는 과정은 시간이 많이 소요되는 Cost가 비싼 연산이다. JDBC, DBCP, ORM

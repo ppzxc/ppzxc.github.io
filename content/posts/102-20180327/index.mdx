@@ -1,0 +1,48 @@
+---
+type: post
+date: 2018-03-27 16:54:09
+title: 디자인패턴-Command
+draft: false
+author: ppzxc
+tags:
+  - 헤드퍼스트디자인패턴
+---
+
+# Command 패턴
+
+메소드 호출을 캡슐화한다. 메소드 호출을 캡슐화하면 호출하는 쪽에선 메소드 내용에 신경쓰지 않아도 되고, 호출 당한 쪽은 일만 잘 하면 된다.
+
+- `커맨드 객체`을 이용해서 메소드 호출이 캡슐화 되기 때문에 달라지는 부분을 달라지지 않는 부분으로 부터 분리 시킬수 있고, 느슨한 결합이 완성된다.
+
+# Simple Source Code
+
+- Command interface, 일반적으로 execute 메소드 하나만 가진다.
+
+`gist:ppzxc/b00353f60e9a724206c2a5403d040a72#Command.java`
+
+- 컴퓨터 객체, 간단하게 Power on, off
+
+`gist:ppzxc/b00353f60e9a724206c2a5403d040a72#Computer.java`
+
+- 컴퓨터의 동작을 정의하는 클래스 이지만, command interface를 구현해 동작을 캡슐화 함.
+
+`gist:ppzxc/b00353f60e9a724206c2a5403d040a72#ComputerOnCommand.java`
+
+- SimpleRemoteControl은 컴퓨터를 원격으로 키고 끌수 있는 리모컨을 구현.
+- Computer와 ComputerOnCommand와는 어떤 의존성도 없으며 Command Interface를 통해 실행됨.
+
+`gist:ppzxc/b00353f60e9a724206c2a5403d040a72#SimpleRemoteControl.java`
+
+- 테스트!
+
+`gist:ppzxc/b00353f60e9a724206c2a5403d040a72#RemoteControlTest.java`
+
+![commandv1](../images/commandv1.JPG)
+
+# Github
+
+> - [Github](https://github.com/JungHa-Cho/HeadFirstDesignPattern/tree/master/src/main/java/head/first/design/pattern/rule/command)
+
+# Reference
+
+> - 에릭 프리먼, 엘리자베스 프리먼, 케이시 시에라, 버트 베이츠, 『 Head First Desgin Pattern』, 서환수 옮김, O'Reilly(1999.6.24).

@@ -1,0 +1,103 @@
+---
+type: post
+date: 2018-03-29 11:56:55
+title: UML 기호 정리
+draft: false
+author: ppzxc
+tags:
+  - StartUML
+---
+
+# 기호 정리 이유
+
+[블랙잭](<https://jungha-cho.github.io/2018/03/29/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EC%84%A4%EA%B3%84-%EB%B8%94%EB%9E%99%EC%9E%AD(7)/>) 게임을 객체 지향적으로 설계해 보던 중 UML을 그려보게 됐는데, 학부때 맛만 본 기억과 인터넷 자료들을 편집해 그리다 보니.. 거꾸로 쓰고.. 잘못쓰고.. 완전 개판이 났다.
+따라서 이번 편을 통해 UML의 `클래스 다이어그램`의 기호를 한번 정리해 보고자 한다.
+
+# Relationship ( 관계 표현 )
+
+여러 레퍼런스 사이트에서 아래 사진을 많이 채용하고 있어, 해당 사진으로 이해해보려 한다.  
+interface, abstract, class의 구분은 충분히 가능하므로 해당 포스트에서는 관계 표현법만 정리해 보겠다.
+
+![relationship.jpg](../images/relationship.jpg)
+
+## 서로 의미 있는 클래스는 크게 4가지로 분류 된다.
+
+- Association과 Dependency의 관계 구분에서 두 개의 구분 법중 가장 큰 기준은 `레퍼런스`를 유지하고 있느냐 아니냐 이다.
+  > A, B라는 클래스가 있을때, A 클래스를 B 클래스가 메소드 내에서 new로 인스턴스화 시킨다면, 메소드가 끝날때 레퍼런스가 없어진다.  
+  > 다만, B 클래스에서 A 클래스 변수를 정의하고 new 생성자로 인스턴스화 시킨다면, B 클래스에 레퍼런스가 종속되기 때문에, `Dependency` 관계라고 볼 수 있다.
+
+# Association 연관 관계
+
+- association 예제
+
+`gist:ppzxc/743aea5912549cde2714ca2989500d39#association1.java`
+
+- B와 A는 연관이 있다.
+  ![association.JPG](../images/association.JPG)
+
+> 연관 관계에서 중요하게 볼점은 `연관 관계의 방향`과 `멀티 플리시티`이다.
+>
+> > 양방향 연관관계란, 서로의 존재를 알고 있다는 뜻이다. A와 B는 서로의 참조 값을 가지고 있다.
+> > 단방향 연관관계란, 한쪽은 다른 한쪽의 존재를 모른다. A만 B의 참조 값을 가지고 있다.
+
+# Dependency 의존 관계
+
+- dependency 예제
+
+`gist:ppzxc/743aea5912549cde2714ca2989500d39#dependency1.java`
+
+- B가 A에게 의존한다.
+  ![dependency1.JPG](../images/dependency1.JPG)
+
+> 1. 한 클래스의 메소드가 다른 클래스의 객체를 인자로 받아 그 메소드를 사용한다. (일반적인 경우)
+> 2. 한 클래스의 메소드가 또 다른 클래스의 객체를 반환한다.
+> 3. 다른 클래스의 메소드가 또 다른 클래스의 객체를 반환한다. 이때 이 메소드를 호출하여 반환되는 객체의 메소드를 사용한다.
+
+# Association 연관 관계의 세부 구분
+
+- 일반적인 연관 관계란 앞에서 살펴본 Association 연관 관계로 표현 된다.
+
+# Association 연관 관계의 특수 구분
+
+- Association의 특수 구분은 Composition과 Aggregation의 특별한 형태로 구분 된다.
+- 특수 연관 관계의 구분은 `Life Cycle`이 같은지 다른지 이다.
+
+## Aggregation 집합 연관
+
+- aggregation 예제
+
+`gist:ppzxc/743aea5912549cde2714ca2989500d39#aggregation.java`
+
+- 집합 연관 관계
+  ![aggregation.JPG](../images/aggregation.JPG)
+
+## Composition 합성 연관
+
+- composition 예제
+  `gist:ppzxc/743aea5912549cde2714ca2989500d39#composition.java`
+
+- 합성 연관 관계
+  ![composition.JPG](../images/composition.JPG)
+
+# inheritance 상속 관계
+
+`gist:ppzxc/743aea5912549cde2714ca2989500d39#inheritance.java`
+
+![inheritance.JPG](../images/inheritance.JPG)
+
+# interface 구현 관계
+
+`gist:ppzxc/743aea5912549cde2714ca2989500d39#interface.java`
+
+![interface.JPG](../images/interface.JPG)
+
+# 끝으로
+
+> association 연관 관계의 특수 연관 관계인 aggregation과 composition의 관계 구분 법에서 재밌는 글을 봤다.
+> `Life Cycle`을 구분하는 방법으로, 사람을 빗대어 표현했는데, 사람과 가같은 라이프 사이클인 팔과 다리 몸통 등 신체의 일부는 강한 집합 `Composition` 관계이고,
+> 부수적으로 착용하는 옷, 안경, 핸드폰 등은 연관 관계가 있지만 라이프 사이클이 다른 `Aggregation` 관계라는 것이다.
+
+# Reference
+
+> - [UML-기본편-기본-표기-형식-및-관계표현법](http://geniusduck.tistory.com/entry/UML-%EA%B8%B0%EB%B3%B8%ED%8E%B8-%EA%B8%B0%EB%B3%B8-%ED%91%9C%EA%B8%B0-%ED%98%95%EC%8B%9D-%EB%B0%8F-%EA%B4%80%EA%B3%84%ED%91%9C%ED%98%84%EB%B2%95)
+> - [UML-기본 표기 형식 및 관계 표현법](http://weicomes.tistory.com/179)

@@ -1,0 +1,62 @@
+---
+type: post
+date: 2017-04-10 18:10:59
+title: Standard Of Java, Interface
+draft: false
+author: ppzxc
+tags:
+  - 자바의정석
+---
+
+### JAVA Interface
+
+- 개발 시간을 단축시킬 수 있다. ( 설계도를 제공 )
+- 표준화가 가능하다. (ex. Jdbc Interface )
+- 서로 관계없는 클래스들에게 관계를 맺어 줄 수 있다. ( 공통 부분을 묶어서 inteface로 작성하고 implements로 구현하게 하면 된다. )
+- 독립적인 프로그래밍이 가능하다. ( 선언부와 구현부의 분리 )
+
+- 구문 분석기는 Interface를 구현해서 원하는 함수를 실행 가능 하다
+- Chapter 7. 객체지향 프로그래밍 2, p. 389
+- 분산환경 프로그래밍에서 그 위력을 발휘한다.
+- 사용자 컴퓨터에 설치된 프로그램을 변경하지않고 서버측의 변경만으로도 사용자가 새로 개정된 프로그럄을 사용하는것이 가능하다.
+
+- 실제로 자바에서는 다수의 데이터베이스 관련된 다수의 인터페이스를 제공하고 있다.
+- 이는 데이터베이스에 종속적이지 않은 프로그램을 구현 가능하게 한다.
+
+### Arraycopy, fill
+
+- System.arraycopy(Object src, ins srcPos, Object dest, int destPos, int length){}
+- // 원본, 원본 시작 위치, 복사본, 복사본 시작위치, 복사본에서 읽어올 만큼
+- // 원본 시작위치에서 복사본에다가 읽어올 만큼 읽어옴
+
+- Arrays.fill(byte[] paramArrayOfByte, int paramInt1, int paramInt2, byte paramByte){}
+- // 원본 바이트 배열, 1부터 2까지 paramByte로 채우기
+
+### Instanceof
+
+- 왼쪽의 피검사 오브젝트가 오른쪽의 검사 오브젝트인지 검사
+
+```
+If (ProcessManager.getThreadDLV(key) instanceof SMSSEND)
+{
+	thread = new Thread (((SMSSEND) ProcessManager.getThreadDLV(key)));
+}
+Else if (ProcessManager.getThreadDLV(key) instanceof MMSSEND)
+{
+	thread = new Thread (((MMSSEND) ProcessManager.getThreadDLV(key)));
+}
+
+```
+
+### 초기화 블럭!!
+
+```
+Class initBlock {
+	static { /* 클래스 초기화 블럭 */ }
+		{ /*인스턴스 초기화 블럭 */ }
+		// …..
+}
+
+```
+
+출처 : 남궁성, 『 자바의 정석 3/E』, 도우출판(2016.1.27), chapter 7 인용.
