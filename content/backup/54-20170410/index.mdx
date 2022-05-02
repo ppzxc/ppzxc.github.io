@@ -1,0 +1,187 @@
+---
+type: post
+date: 2017-04-10 00:00:00
+title: 06. 03. 객체 스트림 소개
+draft: false
+author: ppzxc
+tags:
+  - JavaIO NIO
+---
+
+객체가 전송되거나 쓴다고 하면, 보통 데이터만 해당된다고 생각할 수 있다. 객체가 전송된다는 것은 애플릿, 윈도우 등도 전송될 수 있다는 것을 의미한다.
+
+객체 전송은 다음과 같은 순서를 지켜야 한다.
+
+1. 데이터를 특정 통신 채널로 보낼 수 있는 형태로 바꾼다. 이를 마샬링(marshaling)이라고 한다.
+2. 변환된 데이터를 전송하거나 쓴다.
+3. 변환된 데이터를 읽어 들여 원래의 형태로 변환한다. 이를 언마샬링(marshaling)이라고 한다.
+
+`마샬링`
+
+마샬링이란 데이터를 바이트의 흐름으로 만들어 TCP와 같은 통신 채널을 통해서 전송하거나 스트림으로 써줄 수 있는 형태로 바꾸는 과정을 말한다.
+마샬링 될 수 있는 데이터는 기본 자료형 ( boolean, byte, char, short, int, long, float, double)과 java.io.serializable 인터페이스를 구현하고 있는 객체만 가능하다.
+기본 자료형이 정수일 경우에는 4바이트로 쪼개져서 전송된다. 하지만 객체일 경우에는 이보다 훨씬 복잡한 과정을 거치게 되는데, 객체는 내부적으로 다른 객체를 참조할 수 있기 때문이다. 객체의 스트림은 객체 내부적인 참조까지도 유지하기 위한 방법을 제공해준디ㅏ.
+마샬링은 객체 스트림인 ObjectOutputStream에 의해 제공된다. 그리고 ObjectOutputStream에 의해서 객체는 직렬화되어 전달된다. 객체 직렬화(Object Serialization)란 실제로 객체를 마샬링한다는 의미가 있다.
+
+`전송`
+
+데이터를 발신지에서 목적지로 전달하는 과정을 말한다. 전송을 위해서 객체 스트림은 바이트 기반의 표준 스트림을 이용하게 된다.
+네트워크에 대한 전송뿐만 아니라 파일에 쓰기를 할 경우에도 객체 스트림은 바이트 기반의 표준 스트림을 이용하게 된다.
+
+`언마샬링`
+
+언마샬링이란 마샬링과 반대로 전송받은 데이터를 원래의 형태로 변환하는 과정을 뜻한다. 그리고 전달받은 데이터는 원래 형태로 변환될수 있는 충분한 내용을 포함하고 있다. 객체 직렬화와 반대로 이경우에는 역직렬화(deserialization)이라고 하며, ObjectInputStream에 의해 제공된다. ObjectOutputStream과 ObjectInputStream은 앞서 설명한 것처럼 객체를 직렬화하고 역직렬화 하기위해서 사용한다.
+
+```
+import java.io.Serializable;
+
+public class Book implements Serializable
+{
+    private String isbn;
+    private String title;
+    private String author;
+    private int price;
+
+    public Book(String isbn, String title, String author, int price)
+    {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+    public String getIsbn() { return isbn; }
+    public String setIsbn(String isbn) { this.isbn = isbn; }
+    public String getTitle() { return title; }
+    public String setTitle(String title;) { this.title = title; }
+    public String getAuthor() { return author; }
+    public String setAuthor(String autho) { this.author = author; }
+    public String getPrice() { return price; }
+    public String setPrice(int price) { this.price = price; }
+
+    public String toString()
+    {
+        return getIsbn() + ", " + getTitle() + ", " + getAuthor() + ", " + getPrice();
+    }
+}
+```
+
+Book 클래스는 마샬링되기 위해서 java.io.Serializable 인터페이스를 구현하고 있다. Book 클래스에 있는 필드는 java.lang.String 형과 기본형인 int로 구성되어 있기 때문에 모두 직렬화할 수 있다.
+
+booklist.dat 직렬화
+
+```
+public class BookObjectOutputTest
+{
+    public static void main(String[] args)
+    {
+        FileOutputStream fout = null;
+        ObjectOutputStream oos = null;
+
+        ArrayList list = new ArrayList();
+        Book b1 = new Book("a001", "자바완성", "홍길동", 10000);
+        Book b2 = new Book("a002", "스트럿츠", "김유신", 20000);
+        Book b3 = new Book("a003", "기초 EJB", "김성박", 25000);
+        list.add(b1);
+        list.add(b2);
+        list.add(b3);
+
+        try {
+            fout = new FileOutputStream("booklist.dat");
+            oos = new ObjectOutputStream(fout);
+
+            oos.writeObject(list);
+            oos.reset();
+
+            System.out.println("Saved");
+        } catch (Exception e) {
+        } finally {
+            try {
+                oos.close();
+                fout.close();
+            } catch (Exception e) { }
+        }
+    }
+}
+```
+
+booklist.dat 역직렬화
+
+```
+public class BookObjectInputTest
+{
+    public static void main(String[] args)
+    {
+        FileInputStream fin = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fin = new FileInputStream("booklist.dat");
+            ois = new ObjectInputStream(fin);
+
+            ArrayList list = (ArrayList) ois.readObject();
+            Book b1 = (Book) list.get(0);
+            Book b2 = (Book) list.get(1);
+            Book b3 = (Book) list.get(2);
+
+            System.out.println(b1.toString());
+            System.out.println(b2.toString());
+            System.out.println(b3.toString());
+        } catch (Exception e) {
+        } finally {
+            try {
+                ois.close();
+                fin.close();
+            } catch (Exception e) { }
+        }
+    }
+}
+
+```
+
+### 05. 마샬링하고 싶지 않은 필드에 대한 처리
+
+기본 자료형과 java.io.Serializable 인터페이스를 구현한 객체의 경우 마샬링된다고 했다. 하지만 특별한 경우에는 필드가 마샬링되지 않기를 원할 때도 있다. 예를 들어, 보안상 중요한 필드일 경우에 그렇다.
+
+이때는 자바의 키워드인 transient를 사용하면 된다.
+
+private String author; --> transient private String author;
+
+### 06. 윈도우 저장과 읽기
+
+### 07. ObjectOutputStream 클래스의 생성자와 메소드
+
+`ObjectOutputStream` 클래스는 객체를 직렬화하기 위해서 사용한다. `ObjectOutputStream` 클래스는 다음과 같이 선언되어 있다.
+
+```
+public class ObjectOutputStream extends OutputStream implements ObjectOutput, ObjectStreamConstants
+
+```
+
+`ObjectOutputStream` 클래스에는 생성자가 두 가지인데, 보통 `OutputStream`을 인자로 전달받는 생성자가 사용된다.
+
+```
+public ObjectOutputStream(OutputStream out) throws IOException
+
+```
+
+### 08. ObjectInputStream 클래스의 생성자와 메소드
+
+`ObjectInputStream`은 전소앋은 데이터를 역직렬화할 경우에 사용된다. `ObjectInputStream`은 다음과 같이 선언되어 있다.
+
+```
+public class ObjectInputStream extends InputStream implements ObjectInput, ObjectStreamConstants
+
+```
+
+ObjectInputStream 클래스에 있는 생성자도 두가지인데 보통 InputStream을 인자로 전달받는 생성자를 사용한다. 선언은 다음과 같다.
+
+```
+public ObjectInputStream(InputStream in) throws IOException
+
+```
+
+### 09. 객체 스트림의 예외
+
+객체 스트림은 직렬화와 역직렬화 과정과 관련해서 여러 예외를 발생시킬 수 있다.
+
+출처 : 김성박 송지훈 공저, 『 자바 IO & NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 6장 인용.

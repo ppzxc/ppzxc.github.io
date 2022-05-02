@@ -1,0 +1,119 @@
+---
+type: post
+date: 2017-04-10 00:00:00
+title: 06. 01. 객체 스트림  생각해볼 문제와 간단한 예제
+draft: false
+author: ppzxc
+tags:
+  - JavaIO NIO
+---
+
+```
+Vector v = new Vector();
+Vector v1 = new Vector();
+Vector v2 = new Vector();
+Vector v3 = new Vector();
+v1.addElement(new String("data 1"));
+v1.addElement(new String("data 2"));
+v1.addElement(new String("data 3"));
+v2.addElement(new String("data 4"));
+v3.addElement(v2);
+v.addElement(v1);
+v.addElement(v3);
+```
+
+해당 객체들은 메모리에 Vector와 String이 복잡한 구조를 가지고 있다.
+
+- 이러한 복잡한 구조의 데이터를 파일에 저장하려면 어떻게 해야 할까?
+- 메모리 구조가 더욱 복잡할 경우에는 어떻게 저장할 수 있을까?
+- 저장한 후, 다시 읽어 들여 원래 형태로 구성하려면 어떻게 해야 할까?
+
+```
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
+public class ObjectStreamTest1
+{
+    public static void main(String[] args)
+    {
+        FileOutputStream fout = null;
+        ObjectOutputStream oos = null;
+
+        Vector v = new Vector();
+        Vector v1 = new Vector();
+        Vector v2 = new Vector();
+        Vector v3 = new Vector();
+        v1.addElement(new String("data 1"));
+        v1.addElement(new String("data 2"));
+        v1.addElement(new String("data 3"));
+        v2.addElement(new String("data 4"));
+        v3.addElement(v2);
+        v.addElement(v1);
+        v.addElement(v3);
+
+        try {
+            fout = new FileOutputStream("object.dat");
+            oos = new ObjectOutputStream(fout);
+
+            oos.writeObject(v);
+            oos.reset();
+            System.out.println("Saved");
+        } catch (Exception e) {
+        }finally{
+            try {
+                oos.close();
+                fout.close();
+            } catch (Exception e) { }
+        }
+
+    }
+}
+```
+
+writeObject() 메소드 한번으로 메모리 내의 모든 내용들이 object.bat 파일에 저장된다. 출력 후에는 반드시 reset() 메소드를 호출해야 한다. 그렇지 않을 경우 메모리 leak이 발생할 수 있기 떄문이다.
+
+이제 읽어 들여보자.
+
+```
+public class ObjectStreamTest2
+{
+    public static void main(String[] args)
+    {
+        FileInputStream fin = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fin = new FileInputStream("object.bat");
+            ois = new ObjectInputStream(fin);
+
+            Vector v = (Vector)ois.readObject();
+            Vector v1 = (Vector)v.get(0);
+
+            String d1 = (String)v1.get(0);
+            String d2 = (String)v1.get(1);
+            String d3 = (String)v1.get(2);
+
+            Vector v3 = (Vector)v.get(1);
+            Vector v2 = (Vector)v3.get(0);
+
+            String d4 = (String)v2.get(0);
+
+            System.out.println(d1);
+            System.out.println(d2);
+            System.out.println(d3);
+            System.out.println(d4);
+        } catch (Exception e) {
+        }finally{
+            try {
+                fin.close();
+                ois.close();
+            } catch (Exception e) { }
+        }
+
+    }
+}
+```
+
+출처 : 김성박 송지훈 공저, 『 자바 IO & NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 6장 인용.

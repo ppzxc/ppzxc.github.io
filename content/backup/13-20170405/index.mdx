@@ -1,0 +1,28 @@
+---
+type: post
+date: 2017-04-05 00:00:00
+title: ShutDownHook
+draft: false
+author: ppzxc
+tags:
+  - java
+---
+
+프로세스가 종료될때 반드시 실행되어야 하는 코드를 임의로 정의할 수 있다.
+
+Runtime Library에 정의되어 있다.
+
+Shutdown Hook은 프로세스가 종료될때 반드시 실행되고 Hook이 끝날때까지는 프로세스도 종료되지 않는다.
+Shutdown Hook은 짧게 작성되어야 한다. 머신 종료에 의한 프로세스 종료일때 JVM은 프로세스가 완전히 종료될때까지 기다리지 않고 일정 시간 후 종료한다. 따라서 Shutdown Hook은 Hook이 실행되기 전에 종료될 수도 있고 도중에 종료될 수도 있다.
+Shutdown Hook은 반드시 실행되지는 않는다. Shutdown hook은 정상적인 종료 상황에서만 호출된다. 따라서 비정상적인 종료에서도 반드시 실행되어야 하는 일들은 Java App를 실행하는 스크립트를 작성하거나 App을 하나더 만든다.
+비 정상적인 종료란?
+에러 코드를 반환하는 것이 비정상적인 종료가 아니다.
+System.exit로 호출되는 경우 status 코드를 무엇으로 반환하든지 정상 종료이다.
+SIGTERM을 받아서 종료되는 경우에도 정상종료이다.
+SIGTERM을 받은 프로세스는 정상적으로 Hook을 호출하고 Thread를 정리한다.
+Handle되지 않은 Exception이 발생하는 경우에도 Java는 정상종료로 취급한다.
+위의 3가지 경우엔 문제없이 Hook이 호출된다.
+대표적 비정상 종료는 halt이다. halt는 프로세스 강제종료로 실행되는 즉시 종료된다.
+프로세스가 SIGKILL을 받는 경우도 비정상 종료이다. SIGKILL은 SIGTERM과 달리 바로 종료된다.
+JVM 문제가 발생해서 종료되는 경우도 있다.
+예외

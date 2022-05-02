@@ -1,0 +1,130 @@
+---
+type: post
+date: 2017-04-10 00:00:00
+title: 14. 채널 03. 파일 채널
+draft: false
+author: ppzxc
+tags:
+  - JavaIO NIO
+---
+
+# 03. 파일 채널
+
+각각의 파일채널 객체는 파일 디스크립터와 일대일 관계를 갖는다. 따라서 일반적으로 운영체제의 POSIX 시스템 콜과 대응되는 메소드를 제공한다.
+
+```
+public abstract class FileChannel extends AbstractChannel implements ByteChannel, GatheringByteChannel, ScatteringByteChannel {
+    public abstract long position ()
+    public abstract void position (long newPosition)
+
+    public abstract long size()
+
+    public abstract int read(ByteBuffer dst)
+    public abstract int read(ByteBuffer dst, long position)
+    public abstract int read(ByteBuffer[] dst)
+    public abstract int read(ByteBuffer[] dst, int offset, int length)
+
+    public abstract int write(ByteBuffer src)
+    public abstract int write(ByteBuffer src, long position)
+    public abstract int write(ByteBuffer src[])
+    public abstract int write(ByteBuffer src[], int offset, int length)
+
+    public abstract void truncate(long size)
+    public abstract void force(boolean metaData)
+}
+
+```
+
+각각의 파일채널은 파일 디스크립터와 일대일 관계를 맺는다. 따라서 각각의 파일채널 객체들은 파일 디스크립터와 같은 파일 포지션을 갖는다. 이 포지션은 앞서 살펴봤던 버퍼의 포지션과 같다. 파일 채널에서의 포지션은 현재 파일이 다음 번에 읽거나 쓸 위치를 가리키는 것이다.
+
+어떤 파일은 파일 디스크립터 하나를 가지고 있는데 이 파일하나에 대해 여러개의 파일 또는 파일채널 인스턴스를 생성할 수 있다. 이렇게 되면 해당 파일의 파일 디스크립터를 공유하게 되므로 어떤 파일 하나 또는 파일채널 인스턴스가 포지션을 변경하면 다른 인스턴스에도 모두 바로 반영된다.
+
+다음은 파일채널 인스턴스들이 파일 디스크립터를 공유하고 있는것을 보여주는 예제다.
+
+```
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+
+public class SharedFileChannelInstanceTest {
+    public static void main(String[] args) throws Exception {
+        RandomAccessFile raf = new RandomAccessFile("C:/test.doc", "rw");
+
+        raf.seek(1000);
+        FileChannel fc = raf.getChannel();
+        System.out.println("File position : " + fc.position());
+
+        raf.seek(500);
+        System.out.println("File position : " + fc.position());
+
+        fc.position(100);
+        System.out.println("File position : " + raf.getFilePointer());
+    }
+}
+
+```
+
+같은 파일에 대한 인스턴스들인 임의 접근 파일과 파일채널은 어느 한쪽이 포지션을 변경하면 다른 쪽에서도 그변경이 곧 바로 반영된다는 것을 볼 수 있다.
+
+파일 채널에서 제공하는 또 다른 기본 속성 메소드로는 size()가 있다. size()는 현재 파일 채널 객체에 접근하고 있는 파일의 크기를 long 형태로 리턴해주는 메소드다. 이제 파일 채널의 가장 기본적이면서 핵심적이라고 할 수 있는 읽기, 쓰기에 관련된 메소드를 살펴보자.
+
+```
+public abstract int read(ByteBuffer dst)
+public abstract int write(ByteBuffer src)
+
+```
+
+파일채널의 읽기, 쓰기 메소드 역시 포지션 속성과 연관되어 버퍼와 비슷한 동작을 수행하게 된다. 따라서 파일 채널 역시 버퍼의 읽기, 쓰기와 마찬가지로 read() 또는 write() 메소드로 파일에 데이터를 읽거나 쓰면 자동적으로 파일 포지션이 업데이트 된다.
+
+구체적으로 위의 메소드들은 파라미터로 주어진 버퍼에서 데이터를 먼저 읽거나 쓴다. 그리고 이렇게 읽거나 쓰여진 데이터의 Byte만큼 파일의 포지션을 업데이트 하는 것이다. 기존의 파일 스트림과 같이 파일채널의 read() 메소드 역시 파일의 끝부분까지 다 읽은 경우 EOF(End Of File)을 의미하는 -1을 리턴한다.
+
+파일채널의 write() 메소드로 파일에 데이터를 쓰는 도중에 파일의 끝부분에 다다르면 어떻게 될까? 이것이 버퍼와의 차이점인데, 버퍼의 경우 Exception을 던졌지만 파일 채널은 자동적으로 새롭게 쓰여질 바이트 만큼 파일의 크기를 자동적으로 늘린다.
+
+파일 채널은 버퍼와 마찬가지로 절대적 방식으로 파일을 읽거나 쓸 수 잇는 메소드를 제공해준다.
+
+```
+public abstract int read(ByteBuffer dst, long position)
+public abstract int write(ByteBuffer src, long position)
+
+```
+
+이 메소드들은 좀더 효율적으로 읽기, 쓰기 작업이 가능하다. 절대적 방식의 읽기, 쓰기에는 파일채널의 포지션을 변경할 필요가 없기 떄문이다. 따라서 채널의 변경이 필요 없으므로 IO 요청이 네이티브 코드에 직접적으로 전달된다.
+
+```
+public final long read(ByteBuffer[] dsts)
+public final long read(ByteBuffer[] dsts, int offset, int length)
+public final long write(ByteBuffer srcs)
+public abstract long write(ByteBuffer srcs, int offset, int length)
+
+```
+
+파일채널은 Scatter/Gather를 지원한다. 이것은 파일채널이 구현하는 인터페이스 목록을 보면 확실히 알 수 있다. 따라서 앞서 공부했던 Scatter/Gather 방식과 정확하게 같은 방식으로 파일채널은 읽기, 쓰기 메소드를 수행할 수 있다.
+
+```
+public abstract void truncate(long size)
+public abstract void force(boolean metaData)
+
+```
+
+truncate() 메소드는 인자로 주어진 크기로 파일을 잘라낸다. 즉, 파일의 현재 크기가 파라미터로 주어진 값보다 작거나 같으면 파일은 아무런 변화도 없게 된다. 하지만 파일이 파라미터로 주어진 값보다 작거나 같으면 파일은 아무런 변화도 없게 된다. 파일이 파라미터로 주어진 값보다 크다면 그 파일은 주어진 값의 크기로 잘라지게 된다.
+
+force() 메소드는 파일의 업데이트된 내용을 강제적으로 기억장치에 기입하는 메소드다.
+
+### 2. 파일 락킹
+
+파일 채널이 지원하는 두 번쨰 특징적인 기능은 파일 락킹이다. 대부분의 운영체제들이 공유 락을 지원하기는 하지만 일부 운영ㅊ제에서는 공유 락을 지원하지 않는다. 자바는 플랫폼에서 상관없이 동일하게 동작해야 하기 때문에 공유 락을 지원하지 않는 운영체제와 파일 시스템에서 이것은 큰 문제가 될 수 있다.
+
+자바의 NIO는 무조건 공유 락을 사용할 수 있다는 전제하에 만들어졌다. 다만, 해당 운영체제와 파일 시스템에서 공유 락이 지원되지 않을 경우에는 베타 락으로 설정하게 만든 것이다. 이것은 대부분의 운영ㅊ제와 파일 시스템이 공유 락을 지원한다는 점이 큰 이유가 되겠지만 또 다른 관점에서 NIO의 기본적인 노선인 성능 향상에 맞춘 것이라고 볼 수 있다. 항상 베타 락만을 사용하는 것보다는 공유 락과 함께 베타 락을 사용하는 것이 성능 향상에 더 도움이 되기 때문이다.
+
+### 3. 메모리 맵핑
+
+파일 채널이 지원하는 세번째 특징적인 기능은 메모리 맵 파일(Memory Mapped File)이다. 파일 채널 클래스는 map() 메소드를 제공하는데, 이 메소드의 호출을 통해 열려진 파일과 특별한 형태의 ByteBuffer(ByteBuffer) 사이에 가상 메모리가 생성된다. 이렇게 생성된 가상 메모리는 파일을 저장소로 사용하고 이 가상 메모리 영역은 이 메소드 호출로 리턴되는 MappedByteBuffer 객체가 래핑(Wrapping)하게 된다.
+
+이렇게 생성된 MappedByteBuffer는 메모리 기반 버퍼처럼 동작한다. 그러나 이 버퍼의 저장소는 메모리가 아니라 파일이다. 따라서 이 버퍼에 어떤 내용을 읽거나 쓰면 그것은 곧바로 그 파일에 반영된다. 그렇기 때문에 MappedByteBuffer의 get() 메소드를 호출하면 파일로부터 데이터를 읽어오는데, 현재 파일의 내용이 반영된다. 혹 get() 메소드를 호출하기 바로 직전에 다른 프로세스에 의해 읽어올 부분의 데이터가 변경도었다면 그 변경된 내용이 읽혀올 것이다. 반대로 쓰기 권한이 있는 경우 put() 메소드를 호출하면 곧바로 MappedByteBuffer가 사용하는 파일을 업데이트 할 것이다. 메모리 맵핑 기법을 통한 파일 접근은 기존의 전통적인 자바 IO를 통한 방법과 떄로는 채널을 이용해서 데이터를 읽고 쓰는 방법보다도 훨씬 더 효율적이다.
+
+시간을 소비하는 명시적인 시스템 콜이 필요 없기 떄문이다. 하지만 더욱 중요한 이유는 운영 체제의 가상 메모리 시스템은 자동적으로 메모리 페이지들을 캐시한다는 점이다. 이런 메모리 페이지들은 JVM의 메모리 영역인 힙을 전혀 사용하지 않고 시스템 메모리를 사용해서 캐시한다. 이렇게 한번 메모리 페이지가 정상적으로 만들어지면 그 데이터를 얻기 위해 다른 시스템 콜을 할 필요도 없이 하드웨어의 최고 속도로 그 데이터에 접근할 수 있기 때문이다. 따라서 지속적으로 참조되거나 빈번하게 업데이트되는 섹션 또는 인덱스를 포함하는 크고 복잡한 형태의 파일들은 메모리 매핑을 통해 엄청난 성능 향상을 가져올 수 있다. 이떄 파일 락킹과 결하시키면 크리티컬 섹션에 대한 안정적인 트랜잭션도 가능하다. 하지만 여기서 큰 파일이라는 것에 주의하다. 메모리 매핑은 크기가 작은 파일에 사용할 경우 오히려 기존 방식보다도 더욱 안좋은 성능을 가져온다.
+
+### 4. 채널 간 직접 전송
+
+파일채널이 제공하는 네 번쨰 특별한 기능은 채널에서 직접 채널로 데이터를 효율적으로 보낼 수 있도록 최적화된 다음의 메소드들이다.
+
+출처 : 김성박 송지훈 공저, 『 자바 IO & NIO 네트워크 프로그래밍』, 한빛미디어(2004.9.30), 14장 인용
