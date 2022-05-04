@@ -4,6 +4,7 @@ date: 2018-03-29 23:04:00
 title: 객체지향설계-블랙잭(9)
 draft: false
 author: ppzxc
+media: ./blackjack_v5.JPG, ./blackjack_v5_run.JPG
 tags:
   - 객체 지향 설계
 ---
@@ -22,7 +23,7 @@ tags:
 
 # UML 5번째 버전입니다.
 
-![blackjack_v5.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/blackjack_v5.JPG)
+![blackjack_v5.JPG](./blackjack_v5.JPG)
 
 - 각각의 룰이 따로 적용될 수 있게 룰을 두개로 뜯고, 다형성을 이용한 STRATEGY 패턴을 적용해 보기로 했습니다.
 - 물론, 스트래이트지 패턴이 확장 가능한 부분을 캡슐화하고 확장성을 증가 시켜주지만 여기서는 연습겸 적용시켜봤습니다.
@@ -73,7 +74,8 @@ tags:
 `gist:ppzxc/789afa23997044db818293fca45c1759#Hand.java`
 
 - 실행 화면을 볼까요?
-  ![blackjack_v5_run.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/blackjack_v5_run.JPG)
+  
+![blackjack_v5_run.JPG](./blackjack_v5_run.JPG)
 
 - 처음 세줄은 각각의 유저에게 적용되는 룰이 보여집니다.
 - 딜러를 찾았네요.. 여기가 향후 해결해야될 `문제`입니다...

@@ -4,6 +4,7 @@ date: 2018-03-29 11:56:55
 title: UML 기호 정리
 draft: false
 author: ppzxc
+media: ./relationship.jpg, ./association.JPG, ./dependency1.JPG, ./aggregation.JPG, ./composition.JPG, ./inheritance.JPG, ./interface.JPG
 tags:
   - StartUML
 ---
@@ -18,7 +19,7 @@ tags:
 여러 레퍼런스 사이트에서 아래 사진을 많이 채용하고 있어, 해당 사진으로 이해해보려 한다.  
 interface, abstract, class의 구분은 충분히 가능하므로 해당 포스트에서는 관계 표현법만 정리해 보겠다.
 
-![relationship.jpg](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/relationship.jpg)
+![relationship.jpg](./relationship.jpg)
 
 ## 서로 의미 있는 클래스는 크게 4가지로 분류 된다.
 
@@ -33,7 +34,7 @@ interface, abstract, class의 구분은 충분히 가능하므로 해당 포스�
 `gist:ppzxc/743aea5912549cde2714ca2989500d39#association1.java`
 
 - B와 A는 연관이 있다.
-  ![association.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/association.JPG)
+  ![association.JPG](./association.JPG)
 
 > 연관 관계에서 중요하게 볼점은 `연관 관계의 방향`과 `멀티 플리시티`이다.
 >
@@ -47,7 +48,7 @@ interface, abstract, class의 구분은 충분히 가능하므로 해당 포스�
 `gist:ppzxc/743aea5912549cde2714ca2989500d39#dependency1.java`
 
 - B가 A에게 의존한다.
-  ![dependency1.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/dependency1.JPG)
+  ![dependency1.JPG](./dependency1.JPG)
 
 > 1. 한 클래스의 메소드가 다른 클래스의 객체를 인자로 받아 그 메소드를 사용한다. (일반적인 경우)
 > 2. 한 클래스의 메소드가 또 다른 클래스의 객체를 반환한다.
@@ -69,7 +70,7 @@ interface, abstract, class의 구분은 충분히 가능하므로 해당 포스�
 `gist:ppzxc/743aea5912549cde2714ca2989500d39#aggregation.java`
 
 - 집합 연관 관계
-  ![aggregation.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/aggregation.JPG)
+  ![aggregation.JPG](./aggregation.JPG)
 
 ## Composition 합성 연관
 
@@ -77,19 +78,19 @@ interface, abstract, class의 구분은 충분히 가능하므로 해당 포스�
   `gist:ppzxc/743aea5912549cde2714ca2989500d39#composition.java`
 
 - 합성 연관 관계
-  ![composition.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/composition.JPG)
+  ![composition.JPG](./composition.JPG)
 
 # inheritance 상속 관계
 
 `gist:ppzxc/743aea5912549cde2714ca2989500d39#inheritance.java`
 
-![inheritance.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/inheritance.JPG)
+![inheritance.JPG](./inheritance.JPG)
 
 # interface 구현 관계
 
 `gist:ppzxc/743aea5912549cde2714ca2989500d39#interface.java`
 
-![interface.JPG](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/interface.JPG)
+![interface.JPG](./interface.JPG)
 
 # 끝으로
 

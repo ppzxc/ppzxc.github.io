@@ -4,6 +4,7 @@ date: 2018-03-21 09:33:43
 title: 장애응대-SOCKET편 (1)
 draft: false
 author: ppzxc
+media: ./client-server-socket.JPG
 tags:
   - Java
 ---
@@ -37,7 +38,7 @@ Java `Write Once, Run Anywhere`라는 슬로건으로 설명 되듯이, 하나�
 
 CLIENT 로그에는 HEART BEAT 패킷이 정상적으로 SEND 되었다는게 찍혀 있었다. 하지만, ACK 응답이 1초 내에 오는 일반적인 상황과는 달리 SEND 로그만 찍혀 있다. 누가 봐도 SERVER에서 안줬네 라는 말이 나오는 상황이지만, 실제 내용은 달랐다.
 
-![SOCKET](https://github.com/ppzxc/ppzxc.github.io/blob/master/content/images/client-server-socket.JPG)
+![SOCKET](./client-server-socket.JPG)
 
 - 각각의 소켓은 RecvQueue와 SendQueue가 있으며 해당 큐의 사이즈는 Byte 기준으로 각각의 OS마다 디폴트 용량이 다르다.
 - 클라이언트는 자신의 소켓 SendQueue에 Write 하면 OS단에서 전송하고, RecvQueue에서 수신받는 패킷에 대한 Read만 수행하면 된다.
