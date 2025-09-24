@@ -39,7 +39,6 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-        	#사용자의 환경에 따라 manager를 타게팅해줌 필자는 자동으로 npm으로 설정됨
           if [ -f "${{ github.workspace }}/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
