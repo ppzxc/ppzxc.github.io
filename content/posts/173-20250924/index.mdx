@@ -1,0 +1,166 @@
+---
+type: post
+date: 2025-09-24 15:00:00
+title: mongodb replicaset on docker
+draft: false
+author: ppzxc
+tags:
+  - 'docker'
+  - 'mongodb'
+  - 'replicaset'
+---
+
+# docker-compose
+
+- mongo2, mongo3 는 주석으로 스탠드 얼론
+
+```
+version: "3.9"
+
+networks:
+  infra:
+    external: true
+    
+services:
+
+  mongo1:
+    image: mongo:latest
+    hostname: mongo1
+    container_name: mongo1
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=asdf
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/db/replica/mongo1:/data/db
+      - ./mongodb.key:/etc/mongodb.key 
+    command:
+      - '--replSet'
+      - 'myReplicaSet'
+      - '--keyFile'
+      - '/etc/mongodb.key'
+      - '--bind_ip_all'
+    networks:
+      - infra
+      
+  # mongo2:
+    # image: mongo:latest
+    # hostname: mongo2
+    # container_name: mongo2
+    # restart: always
+    # environment:
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: root!
+    # depends_on:
+      # - mongo1
+    # ports:
+      # - 27018:27017
+    # volumes:
+      # - ./data/db/replica/mongo2:/data/db
+      # - ./mongodb.key:/etc/mongodb.key
+    # command:
+      # - '--replSet'
+      # - 'myReplicaSet'
+      # - '--keyFile'
+      # - '/etc/mongodb.key'
+      # - '--bind_ip_all'
+      
+  # mongo3:
+    # image: mongo:latest
+    # hostname: mongo3
+    # container_name: mongo3
+    # restart: always
+    # environment:
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: root!
+    # depends_on:
+      # - mongo2
+    # ports:
+      # - 27019:27017
+    # volumes:
+      # - ./data/db/replica/mongo3:/data/db
+      # - ./mongodb.key:/etc/mongodb.key
+    # command:
+      # - '--replSet'
+      # - 'myReplicaSet'
+      # - '--keyFile'
+      # - '/etc/mongodb.key'
+      # - '--bind_ip_all'
+      
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 9000:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo1
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=test
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=asdf
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=test
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=asdf
+      #- ME_CONFIG_BASICAUTH_USERNAME=${MONGO_EXPRESS_USERNAME}
+      #- ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_EXPRESS_PASSWORD}
+    networks:
+      - infra
+```
+
+# 컨테이너 내에서 키파일 생성
+
+- [https://www.mongodb.com/docs/v2.4/tutorial/generate-key-file/](https://www.mongodb.com/docs/v2.4/tutorial/generate-key-file/)
+
+```
+openssl rand -base64 756 > /mongodb.key
+```
+
+# 자동 키 생성 및 레플리카셋 몽고 실행
+
+```
+#!/bin/bash
+openssl rand -base64 756 > ./mongodb.key
+chmod 400 ./mongodb.key
+chown 999:999 ./mongodb.key
+docker compose up --build -d
+docker compose logs -f
+```
+
+# mongo1 컨테이너 접속 후 아래 커맨드 실행
+
+1. mongosh
+2. use admin
+3. db.auth("test","asdf")
+4. 레플리카 셋 초기화
+
+```
+rs.initiate({
+	 _id: "myReplicaSet",
+	 members: [
+	   {_id: 0, host: "mongo1"}
+	 ]
+});
+```
+
+1. rs.status()
+
+# 유저 생성
+
+```
+db.createUser({
+	user: "hexagonal",
+	pwd: "eogksalsrnr",
+	roles:[{role:"dbAdmin", db:"hub-local"}, {role:"readWrite", db:"hub-local"}, {role:"dbAdmin", db:"hub-develop"}, {role:"readWrite", db:"hub-develop"}]
+})
+```
+
+```
+db.createUser({
+	user: "hexagonal",
+	pwd: "eogksalsrnr",
+	roles:[{role:"dbAdmin", db:"hub-develop"}, {role:"readWrite", db:"hub-develop"}]
+})
+```
