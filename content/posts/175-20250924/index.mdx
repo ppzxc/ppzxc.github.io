@@ -69,23 +69,31 @@ tags:
 
 ### 1. OPEN
 
+```
 - AT+QIOPEN=<contextID>,<connectID>,<service_type>,<IP_address>/<domain_name>,<remote_port>[,<local_port>[,<access_mode>]]
 - at+qiopen=1,0,"TCP","59.25.177.53",19999,0,0
+```
 
 ### 1.1. OPEN 실패시
 
+```
 - qi+deact=1
+```
 
 ### 2. STATE
 
+```
 - at+qistate?
+```
 
 ### 3. SEND
 
+```
 - AT+QISEND=<connectID>
 - AT+QISEND=<connectID>,<send_length>
 - AT+QISEND=<connectID>,<send_length>,<remoteIP>,<remote_port>
 - AT+QISEND=<connectID>,0
+```
 
 ### 4. RECV
 
