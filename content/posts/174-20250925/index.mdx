@@ -1,6 +1,6 @@
 ---
 type: post
-date: 2025-09-24 15:00:00
+date: 2025-09-25 09:00:00
 title: sdkman windows 가이드
 draft: false
 author: ppzxc
@@ -17,27 +17,37 @@ tags:
 # 설치 순서
 
 1. git 설치
-    1. https://git-scm.com/
-2. 아래 파일 검색 후 다운로드
-    
-- zip-3.0-bin.zip
 
+- https://git-scm.com/
+
+2. 아래 파일 검색 후 다운로드
+
+- zip-3.0-bin.zip
 - bzip2-1.0.5-bin.zip
-    
+
 3. 각 첨부 파일 압축 해제 후 bin 폴더 내 모든 파일을 아래 경로로 복사
-    1. C:\Program Files\Git\bin
-    2. 중복 요소가 존재할 경우 건너뛰기
+
+- C:\Program Files\Git\bin
+- 중복 요소가 존재할 경우 건너뛰기
+
 4. git bash 실행
-    1. git 설치 후 git bash 까지 자동 설치됨
+
+- git 설치 후 git bash 까지 자동 설치됨
+
 5. git bash 터미널에서 아래 명령어 입력
-    
-    ```
-    curl -s "https://get.sdkman.io" | bash
-    ```
-    
+
+```
+curl -s "https://get.sdkman.io" | bash
+```
+
 6. sdk list java
-    1. 설치 가능 자바 목록 노출
+
+- 설치 가능 자바 목록 노출
+
 7. java 설치 ( 설치 요소의 Identifier가 21.0.4-amzn 일 경우)
-    1. sdk install java 21.0.4-amzn
+
+- sdk install java 21.0.4-amzn
+
 8. 사용 할 java sdk 선택
-    1. sdk use java 21.0.4-amzn
+
+- sdk use java 21.0.4-amzn

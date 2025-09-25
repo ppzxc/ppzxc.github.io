@@ -1,6 +1,6 @@
 ---
 type: post
-date: 2025-09-24 15:00:00
+date: 2025-09-26 15:00:00
 title: CAT.M1 통신 연동 예제 With Raspberry Pi
 draft: false
 author: ppzxc
@@ -15,9 +15,12 @@ tags:
 
 - Raspberry Pi 4B
 - 패키지 최신버전
-    - apt-get update && apt-get upgrade
 
-![Untitled](Untitled.png)
+```shell
+ apt-get update && apt-get upgrade
+```
+
+![Untitled0](Untitled.png)
 
 ## Modem
 
@@ -30,42 +33,44 @@ tags:
 1. Raspberry Pi 4B - Raspbian OS 최신 버전 설치
 2. Raspbian OS 패키지 업데이트
 3. Raspberry Pi 4B - USB 3번 포트에 LM5 USB로 연결
-    1. LM5는 USB에서 전원을 입력받을 수 있으므로 통신과 전원 둘다 공급 받음
+
+- LM5는 USB에서 전원을 입력받을 수 있으므로 통신과 전원 둘다 공급 받음
+
 4. USB 드라이버 설치 없이 연결 확인 됨
 
-![Untitled](Untitled%201.png)
+![Untitled1](Untitled1.png)
 
 1. picocom 터미널로 usb에 접근
-    1. picocom -b 115200 /dev/ttyUSB2
+
+- picocom -b 115200 /dev/ttyUSB2
+
 2. at 커맨드로 통신사 연결 확인
 
 > 추후 사용될 프로그래밍 언어에 맞춰서 터미널 라이브러리 또는 AT 커맨드 라이브러리를 찾아 활용해야 할듯.
-> 
 
-예제
+3. 예제
 
-[https://asciinema.org/a/DVxikcP7q3JoEC7fYzK1jUPWF](https://asciinema.org/a/DVxikcP7q3JoEC7fYzK1jUPWF)
+- [https://asciinema.org/a/DVxikcP7q3JoEC7fYzK1jUPWF](https://asciinema.org/a/DVxikcP7q3JoEC7fYzK1jUPWF)
 
 ## LM5, AT COMMAND 매뉴얼
 
-[Quectel_BG96_GNSS_AT_Commands_Manual_V1.1.pdf](Quectel_BG96_GNSS_AT_Commands_Manual_V1.1.pdf)
+- [Quectel_BG96_GNSS_AT_Commands_Manual_V1.1.pdf](Quectel_BG96_GNSS_AT_Commands_Manual_V1.1.pdf)
 
-[Quectel_BG96_HTTP(S)_AT_Commands_Manual_V1.0.pdf](Quectel_BG96_HTTP(S)_AT_Commands_Manual_V1.0.pdf)
+- [Quectel_BG96_HTTP(S)_AT_Commands_Manual_V1.0.pdf](Quectel_BG96_HTTP(S)_AT_Commands_Manual_V1.0.pdf)
 
-[Quectel_BG96_MQTT_Application_Note_V1.0.pdf](Quectel_BG96_MQTT_Application_Note_V1.0.pdf)
+- [Quectel_BG96_MQTT_Application_Note_V1.0.pdf](Quectel_BG96_MQTT_Application_Note_V1.0.pdf)
 
-[Quectel_BG96_TCP(IP)_AT_Commands_Manual_V1.0.pdf](Quectel_BG96_TCP(IP)_AT_Commands_Manual_V1.0.pdf)
+- [Quectel_BG96_TCP(IP)_AT_Commands_Manual_V1.0.pdf](Quectel_BG96_TCP(IP)_AT_Commands_Manual_V1.0.pdf)
 
-[Wireless_LTE_CAT-M1_Module_Modem SW Manual_Rev1.9.pdf](Wireless_LTE_CAT-M1_Module_Modem_SW_Manual_Rev1.9.pdf)
+- [Wireless_LTE_CAT-M1_Module_Modem SW Manual_Rev1.9.pdf](Wireless_LTE_CAT-M1_Module_Modem_SW_Manual_Rev1.9.pdf)
 
-[LM5 User Guide V2.6.pdf](LM5_User_Guide_V2.6.pdf)
+- [LM5 User Guide V2.6.pdf](LM5_User_Guide_V2.6.pdf)
 
-[Quectel_BG96_AT_Commands_Manual_V2.3.pdf](Quectel_BG96_AT_Commands_Manual_V2.3.pdf)
+- [Quectel_BG96_AT_Commands_Manual_V2.3.pdf](Quectel_BG96_AT_Commands_Manual_V2.3.pdf)
 
-## 2021-11-24 +
+## 추가
 
 - TCP 예제
-- 59.25.177.53:19999는 나노아이티 자체 TCP 테스트 서버
 
 ### 1. OPEN
 
@@ -100,21 +105,21 @@ tags:
 - open access mode를 buffer 모드로 선택했을 경우
 - at+qird=0
 
-[https://asciinema.org/a/BMMrprwy93tD7DjQxBsuI2WOx](https://asciinema.org/a/BMMrprwy93tD7DjQxBsuI2WOx)
+- [https://asciinema.org/a/BMMrprwy93tD7DjQxBsuI2WOx](https://asciinema.org/a/BMMrprwy93tD7DjQxBsuI2WOx)
 
-[https://github.com/Wiznet/wiznet-iot-shield-mbed-kr/blob/master/docs/mbed_guide_bg96_tcp.md](https://github.com/Wiznet/wiznet-iot-shield-mbed-kr/blob/master/docs/mbed_guide_bg96_tcp.md)
+- [https://github.com/Wiznet/wiznet-iot-shield-mbed-kr/blob/master/docs/mbed_guide_bg96_tcp.md](https://github.com/Wiznet/wiznet-iot-shield-mbed-kr/blob/master/docs/mbed_guide_bg96_tcp.md)
 
-## 2021-11-23 +
+## 추가 2
 
 전원 인가시 LM5 모듈 자동 ON
 
-![Untitled](Untitled%202.png)
+![Untitled2](Untitled2.png)
 
-![Untitled](Untitled%203.png)
+![Untitled3](Untitled3.png)
 
 ![KakaoTalk_20211123_165328570.jpg](KakaoTalk_20211123_165328570.jpg)
 
-## 2021-11-08 +
+## 추가 3
 
 ### Golang Connect To LM5 CAT.M1 Example
 
