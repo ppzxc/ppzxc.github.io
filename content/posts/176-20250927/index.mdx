@@ -1,0 +1,143 @@
+---
+type: post
+date: 2025-09-27 15:00:00
+title: haproxy on podman
+draft: false
+author: ppzxc
+tags:
+  - 'haproxy'
+  - 'podman'
+---
+
+# podman haproxy
+
+1. config
+
+```
+vim ./haproxy.cfg
+```
+
+1. podman compose
+
+```
+
+```
+
+1. Makefile
+
+```
+restart: down run log
+
+run:
+	podman \
+	run \
+	--name=haproxy \
+	--detach \
+	--volume /home/mt2/containers/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg \
+	--net internal \
+	--publish 3001:3001 \
+	--publish 3306:3306 \
+	--publish 3307:3307 \
+	--publish 8080:8080 \
+	--log-driver journald \
+	haproxy:2.9.2-alpine3.19
+
+stop:
+	podman stop haproxy
+
+down:
+	podman rm -f haproxy
+
+log:
+	podman logs -f haproxy
+
+sys-gen:
+	podman generate systemd haproxy
+
+sys-edit:
+	systemctl edit --user --full --force haproxy.service
+
+sys-restart:
+	systemctl --user restart haproxy
+
+sys-reload:
+	systemctl --user daemon-reload
+	systemctl --user enable --now haproxy.service
+
+sys-linger:
+	loginctl enable-linger
+
+sys-remove:
+	systemctl --user stop haproxy
+	systemctl --user disable haproxy
+	systemctl --user daemon-reload
+	systemctl --user reset-failed
+```
+
+1. haroxy.cfg
+
+```
+global
+    log         stdout format raw local0 debug
+    maxconn     4096
+    #log         127.0.0.1 local2
+    # chroot      /var/lib/haproxy
+    # pidfile     /var/run/haproxy.pid
+    # user        haproxy
+    # group       haproxy
+    # daemon
+
+defaults
+    log                     global
+    option                  tcplog
+    option                  dontlognull
+    retries                 3
+    timeout connect         3s
+    timeout client          1m
+    timeout server          1m
+
+listen MariaDbAccessMaster
+    bind *:3306
+    mode tcp
+
+    stick       match src
+    stick-table type  ip  size 200k expire 30m
+    stick       on    dst
+
+    option mysql-check user mysql_haproxy_ck
+
+    # 10.10.10.4 master일때
+    server mariadb-master 172.30.1.101:3306 check on-marked-down shutdown-sessions
+    server mariadb-slave  172.30.1.111:3306 check on-marked-down shutdown-sessions backup
+
+    # 10.10.10.5 master일때
+    # server mariadb-master 172.30.1.111:3306 check on-marked-down shutdown-sessions
+    # server mariadb-slave  172.30.1.101:3306 check on-marked-down shutdown-sessions backup
+
+listen MariaDbAccessSlave
+    bind *:3307
+    mode tcp
+
+    option mysql-check user mysql_haproxy_ck
+
+    # 10.10.10.5 slave일때
+    server mariadb-slave  172.30.1.111:3306 check on-marked-down shutdown-sessions
+    server mariadb-master 172.30.1.101:3306 check on-marked-down shutdown-sessions backup
+
+    # 10.10.10.4 slave일때
+    # server mysql-slave  172.30.1.101:3306 check on-marked-down shutdown-sessions
+    # server mysql-master 172.30.1.111:3306 check on-marked-down shutdown-sessions backup
+
+# MARIADB 외부 접근
+listen ExternalAccess
+    bind *:3001
+    server AccessVirtualIp 10.10.10.102:3306
+
+listen stats
+    bind  *:8080
+    mode  http
+    stats enable
+    stats uri /
+    stats realm Strictly\ Private
+    stats auth nanoit:admin
+```
