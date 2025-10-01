@@ -1,0 +1,105 @@
+---
+type: post
+date: 2025-10-01 15:00:00
+title: Cisco Config Ftp Archive
+draft: false
+author: ppzxc
+tags:
+  - 'cisco'
+  - 'ftp'
+---
+
+# Cisco Config Ftp Archive
+
+# Rocky Linux 9.3
+
+```makefile
+vim /etc/vsftpd/vsftpd.conf
+```
+
+- 거의 기본값인데 allow writeable chroot = YES 필수
+
+```
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+#anon_upload_enable=YES
+#anon_mkdir_write_enable=YES
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+#chown_uploads=YES
+#chown_username=whoever
+xferlog_file=/var/log/xferlog
+xferlog_std_format=YES
+#idle_session_timeout=600
+#data_connection_timeout=120
+#nopriv_user=ftpsecure
+#async_abor_enable=YES
+#ascii_upload_enable=YES
+#ascii_download_enable=YES
+#ftpd_banner=Welcome to blah FTP service.
+#deny_email_enable=YES
+#banned_email_file=/etc/vsftpd/banned_emails
+chroot_local_user=YES
+#chroot_list_enable=YES
+#chroot_list_file=/etc/vsftpd/chroot_list
+#ls_recurse_enable=YES
+listen=YES
+#listen_ipv6=YES
+pam_service_name=vsftpd
+userlist_enable=YES
+
+# add config
+#tcp_wrappers=YES
+allow_writeable_chroot=YES
+#pasv_enable=YES
+#pasv_min_port=50001
+#pasv_max_port=50100
+```
+
+```makefile
+systemctl enable --now vsftpd
+systemctl status vsftpd
+```
+
+- public zone 에서 ftp 추가 하거나 trusted zone 에 cisco router ip 등록
+
+```
+firewall-cmd --permanent --zone=public --add-service=ftp
+firewall-cmd --reload
+```
+
+```
+firewall-cmd --permanent --zone=trusted --add-source=X.X.X.X
+firewall-cmd --reload
+```
+
+# Cisco 설정
+
+- enable 후 실행
+
+```
+configure terminal
+no ip ftp username
+no ip ftp password
+archive
+path ftp://{USERNAME}:{PASSWORD]@X.X.X.X/$h
+write-memory
+time-period 10080
+end
+```
+
+- 기존 ftp id pass 삭제
+- archive 설정 모드 진입
+- ftp path 설정
+- 현재 running config 를 아카이빙
+- 기간은 분단위로 1주일에 한번씩
+
+# Cisco Archive 테스트
+
+```
+archive config
+sh archive
+```
