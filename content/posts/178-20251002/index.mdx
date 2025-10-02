@@ -1,0 +1,80 @@
+---
+type: post
+date: 2025-10-02 15:00:00
+title: Oracle Database On Docker
+draft: false
+author: ppzxc
+tags:
+  - 'oracle'
+  - 'docker'
+---
+
+# oracle database on docker
+
+ID: 72
+상태: 시작 전
+생성 일시: 2025년 1월 24일 오전 10:59
+생성자: 조정하
+최종 편집 일시: 2025년 1월 24일 오후 1:11
+최종 편집자: 조정하
+
+1. docker 명령어 이용
+- 도커 명령어 사용해 ORACLE DB 띄우기
+
+```docker
+docker run --name oracle19c -d -p 1521:1521 -e ORACLE_SID={SID 이름} -e ORACLE_PWD={기본 비밀번호} -e ORACLE_CHARACTERSET={캐릭터셋} doctorkirk/oracle-19c
+```
+
+```docker
+docker run --name oracle19c -d -p 1521:1521 -e ORACLE_SID=NANOITDB -e ORACLE_PWD=sksrhd!@34 -e ORACLE_CHARACTERSET=AL32UTF8 doctorkirk/oracle-19c
+```
+
+- 도커 게스트 머신 접속
+    - docker exec -it oracle19c /bin/bash
+- 게스트 머신에서 sqlplus 이용해 관리자 계정 접속
+    - sqlplus / as sysdba
+- DBA 계정 생성 (실 사용 용도가 아닌 관리 용도)
+
+```docker
+CREATE USER {name} IDENTIFIED BY {비밀번호}
+GRANT DBA TO {name};
+GRANT ALL PRIVILEGES TO {name};
+```
+
+- 테이블 스페이스 생성
+
+```docker
+CREATE TABLESPACE {테이블스페이스이름} DATAFILE '{파일이름}' SIZE 100 M AUTOEXTEND ON NEXT 100 M MAXSIZE 10 G;
+```
+
+```docker
+CREATE TABLESPACE kpic DATAFILE 'kpic' SIZE 100 M AUTOEXTEND ON NEXT 100 M MAXSIZE 10 G;
+```
+
+- 임시 테이블 스페이스 생성
+
+```docker
+CREATE TEMPORARY TABLESPACE nanoit_temp TEMPFILE 'nanoit_temp' SIZE 100 M AUTOEXTEND ON NEXT 100 M MAXSIZE 10 G;
+```
+
+- 생성한 테이블 스페이스를 사용하는 사용자 생성
+
+```docker
+CREATE USER post IDENTIFIED BY post DEFAULT TABLESPACE KPIC TEMPORARY TABLESPACE nanoit_temp;
+```
+
+```docker
+CREATE USER finance IDENTIFIED BY finance
+       DEFAULT   TABLESPACE KPIC
+       TEMPORARY TABLESPACE KPIC_TEMP;
+```
+
+- 사용자 권한 설정
+
+```docker
+GRANT CREATE SESSION TO post;
+GRANT CREATE SEQUENCE TO post;
+GRANT CREATE TABLE TO post;
+GRANT DROP ANY TO post;
+GRANT UNLIMITED TABLESPACE TO post;
+```
