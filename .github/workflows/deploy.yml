@@ -1,40 +1,31 @@
-    name: Deploy Gatsby site to Pages
+name: Deploy Gatsby to GitHub Pages
 
-    on:
-      push:
-        branches: ["master"] # Or your default branch
+on:
+  push:
+    branches:
+      - master # Trigger on pushes to the main branch
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    jobs:
-      build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Or your desired Node.js version
 
-          - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-              node-version: "20" # Or your preferred Node.js version
+      - name: Install dependencies
+        run: npm install # Or yarn install
 
-          - name: Install dependencies
-            run: npm install
+      - name: Build Gatsby site
+        run: npm run build # Or yarn build
 
-          - name: Build Gatsby site
-            run: npm run build # Or gatsby build --prefix-paths if needed
-
-          - name: Setup Pages
-            uses: actions/configure-pages@v5
-
-          - name: Upload artifact
-            uses: actions/upload-pages-artifact@v3
-            with:
-              path: "./public" # The directory containing your built Gatsby site
-
-          - name: Deploy to GitHub Pages
-            id: deployment
-            uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./public # The directory where Gatsby builds the static files
+          publish_branch: gh-pages # The branch to deploy to (e.g., gh-pages)
