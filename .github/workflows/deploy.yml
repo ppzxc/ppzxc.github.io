@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - master # Trigger on pushes to the main branch
-
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,6 +28,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public # The directory where Gatsby builds the static files
           publish_branch: gh-pages # The branch to deploy to (e.g., gh-pages)
