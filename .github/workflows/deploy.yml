@@ -2,7 +2,7 @@
 
     on:
       push:
-        branches: ["main"] # Or your default branch
+        branches: ["master"] # Or your default branch
 
     permissions:
       contents: read
