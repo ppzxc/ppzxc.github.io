@@ -1,0 +1,52 @@
+---
+type: post
+date: 2025-10-28 17:00:00
+title: Oracle Database 19.3C on Docker
+draft: false
+author: ppzxc
+tags:
+  - 'oracle'
+  - '19.3c'
+  - 'docker'
+---
+
+# 순서
+
+1. git hub 주소 https://github.com/oracle/docker-images
+2. git clone
+
+```vbnet
+git clone https://github.com/oracle/docker-images.git
+```
+
+1. 도커 이미지 빌드 스크립트 찾아가기
+
+```vbnet
+cd ./docker-images/OracleDatabase/SingleInstance/dockerfiles/
+```
+
+1. ORACLE DATABASE 바이너리 다운로드
+    - oracle ID 필요
+    - 버전에 맞는 압축 파일 다운로드
+
+[Database Software Downloads | Oracle 대한민국](https://www.oracle.com/kr/database/technologies/oracle-database-software-downloads.html)
+
+1. 다운로드한 파일을 버전에 맞는 폴더에 붙여넣기
+
+```vbnet
+cp ./LINUX.X64_213000_db_home.zip ./docker-images/OracleDatabase/SingleInstance/dockerfiles/21.3.0
+```
+
+1. 사용 가능 인수 보기
+    - ./buildContainerImage.sh --h
+2. 이미지 빌드 스크립트 실행
+
+```vbnet
+./buildContainerImage.sh -e -v 21.3.0
+```
+
+1. 도커 컨테이너 실행
+
+```
+docker run -d --name oracle21c -p 1521:1521 -p 5500:5500 -p 2484:2484 -v oracle21c:/opt/oracle/oradata -e ORACLE_PWD=Sksrhd1234 -e ORACLE_CHARACTERSET=AL32UTF8 oracle/database:21.3.0-ee
+```
