@@ -1,0 +1,73 @@
+---
+type: post
+date: 2025-10-28 17:00:00
+title: systemd에서 서비스 프로그램 운영하기
+draft: false
+author: ppzxc
+tags:
+  - 'systemd'
+  - 'java'
+---
+
+# 개요
+
+- nohup background 실행은 그만 사용하자
+- systemd에서 서비스를 운영시 장점이 많음
+
+# 순서
+
+- user 레벨 계정에서도 사용 가능하다
+
+```
+$ systemctl --user deamon-reload  # Service 파일 동기화
+$ systemctl --user enable a.service  # 부팅 시 실행
+$ systemctl --user start a.service  # Service 시작
+$ systemctl --user restart a.service  # Service 재시작
+$ systemctl --user stop a.service  # Service 종료
+$ systemctl --user status a.service  # Service 상태 확인
+```
+
+- 아래 부터는 root 계정 기준 설명
+
+1. 서비스 등록파일 생성
+
+```
+vi /etc/systemd/system/app.service
+```
+
+2. 내용 작성
+
+- java 프로세스가 었을때 10초 후 재실행 시도 하게끔 세팅함
+- 각 세부 내용들은 검색
+
+```
+[Unit]
+Description=Example Application
+After=network-online.target
+
+[Service]
+Type=simple
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10s
+
+User=root
+Group=root
+
+WorkingDirectory=/app
+Environment=JAVA_HOME=/us/Lib/jvm/jre -17
+ExecStart=/bin/java -server -Xms256m -Xmx512m -Dfile.encoding=UTF-8 -jar /app/example-0.0.1.jar /app/application.yml
+ExecStop=/bin/kill -15 $MAINPID
+LogNamespace=nosyslog
+
+[Install]
+WantedBy=multi-user.target
+```
+
+3. 조작
+
+```
+systemctl status example
+systemctl stop example
+systemctl start example
+```
