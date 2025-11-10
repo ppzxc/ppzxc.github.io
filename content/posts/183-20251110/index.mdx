@@ -1,0 +1,36 @@
+---
+type: post
+date: 2025-11-10 17:00:00
+title: file queue
+draft: false
+author: ppzxc
+tags:
+  - 'file queue'
+  - 'java'
+---
+
+# 개요
+
+- 외부 종속성이 없는 queue가 필요
+- 호스트 머신 파일 시스템을 사용하는 queue가 필요
+
+# 요약
+
+- RocksDB를 사용해 보려 했으나 AIX 미지원 확인됨
+- H2 라이브러리의 mvStore가 read write 성능 측면에서 우수함
+- 객체 버퍼링이 필요한 애플리케이션에서 운영 검증됨
+- MVStoreFileQueueProperties 는 MVStore 설정값 중 필요한 값들만 빼놓은 설정 클래스
+
+# 레포지토리
+
+- [https://github.com/ppzxc/fq](https://github.com/ppzxc/fq)
+
+# usage
+
+```
+MVStoreFileQueueProperties mVStoreFileQueueProperties = new MVStoreFileQueueProperties();
+mVStoreFileQueueProperties.setFileName("C:\\fq.db");
+FileQueue<byte[]> fileQueue = FileQueueFactory.createMVStoreFileQueue(mVStoreFileQueueProperties);
+fileQueue.enqueue("안녕".getBytes(StandardCharsets.UTF_8));
+System.out.println(fileQueue.dequeue().get());
+```
